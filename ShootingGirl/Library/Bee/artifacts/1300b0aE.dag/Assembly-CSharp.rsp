@@ -377,8 +377,13 @@
 "Assets/ShootingGirl/Prefabs/Characters/_Scripts/PoolMonoGC.cs"
 "Assets/ShootingGirl/Prefabs/Characters/_Scripts/RandomEnemyPosition.cs"
 "Assets/ShootingGirl/Prefabs/Map/_Scripts/Map.cs"
+"Assets/ShootingGirl/Prefabs/Stuff/Veapon/VeaponGun/_Scripts/VeaponGun.cs"
+"Assets/ShootingGirl/Prefabs/Stuff/Veapon/_Scripts/AbsVeapon.cs"
+"Assets/ShootingGirl/Prefabs/_Scripts/GlobalEventManager.cs"
+"Assets/ShootingGirl/Prefabs/_Scripts/IRefreshible.cs"
 "Assets/ShootingGirl/Resources/ScriptableObj/_Scripts/CharacterInfo.cs"
 "Assets/ShootingGirl/Resources/ScriptableObj/_Scripts/CommonMapInfo.cs"
+"Assets/ShootingGirl/Resources/ScriptableObj/_Scripts/VeaponInfo.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 
