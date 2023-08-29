@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : AbsCharacterMovement
 {
-
+    private InputJoystick _inputJoystick;
     private AimsListContainer _aimsListContainer;
     private float _angleOfMove;
-    private float _inputAxis;
-    private bool _isJump;
+    private float _joystickHorizontalValue;
+    private float _joystickVerticalValue;
 
     private void OnEnable()
     {
@@ -23,38 +23,8 @@ public class PlayerMovement : AbsCharacterMovement
     {
         base.Awake();
 
+        _inputJoystick = GetComponent<InputJoystick>();
         _aimsListContainer = GameObject.Find("CaractersController").GetComponent<AimsListContainer>();
-    }
-
-    private void Update()
-    {
-        CheckMoveButton();
-        CheckJumpButton();
-        CheckRefreshAimButton();
-    }
-
-    //TODO Chenge on the UI button
-    private void CheckMoveButton()
-    {
-        _inputAxis = Input.GetAxis("Horizontal");
-    }
-    private void CheckJumpButton()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _isJump = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            _isJump = false;
-        }
-    }
-    private void CheckRefreshAimButton()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SetAimTransform();
-        }
     }
 
     public override void SetStartPosition()
@@ -75,11 +45,16 @@ public class PlayerMovement : AbsCharacterMovement
 
     private void CalculateAngle()
     {
-        if (_inputAxis > 0 && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.CommonMapInfo.AngleMapLimit)
+        _joystickHorizontalValue = _inputJoystick.GetHorisontalValue();
+
+        //Right
+        if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.CommonMapInfo.AngleMapLimit)
         {
             _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedMove;
         }
-        if (_inputAxis < 0 && (_angleOfMove * Mathf.Rad2Deg) > - _thisCharacter.CommonMapInfo.AngleMapLimit)
+
+        //Left
+        if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.CommonMapInfo.AngleMapLimit)
         {
             _angleOfMove += Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedMove;
         }
@@ -97,11 +72,13 @@ public class PlayerMovement : AbsCharacterMovement
 
     private float GetYJump()
     {
-        if(_isJump == true   &&   _thisTransform.position.y <= _thisCharacter.CharacterInfo.HeightJump)
+        _joystickVerticalValue = _inputJoystick.GetVerticalValue();
+
+        if (_joystickVerticalValue > 0   &&   _thisTransform.position.y <= _thisCharacter.CharacterInfo.HeightJump)
         {
             return _thisTransform.position.y + (Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedJump);
         }
-        if (_isJump == false   &&   _thisTransform.position.y > _thisCharacter.CharacterInfo.DefaultY)
+        if (_joystickVerticalValue <= 0 &&   _thisTransform.position.y > _thisCharacter.CharacterInfo.DefaultY)
         {
             return _thisTransform.position.y - (Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedJump);
         }

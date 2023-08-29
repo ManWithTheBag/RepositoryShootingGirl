@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237b88a8f5ad995449a179d0f036a839, type: 3}
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
+  _fullHealth: 10
   _speedMove: 0.5
-  _angleMoveLimit: 45
   _speedTakeAim: 10
   _speedJump: 15
   _heightJump: 10
   _defaultY: 1
+  _scoreInEnemy: 0
+  _iconOfEnemy: {fileID: 0}
