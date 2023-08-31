@@ -5,36 +5,42 @@ using UnityEngine;
 public class PlayerMovement : AbsCharacterMovement
 {
     private InputJoystick _inputJoystick;
-    private AimsListContainer _aimsListContainer;
+    private AimsPoolContainer _aimsPoolContainer;
+    private Transform _nearestAimOfPlayer;
     private float _angleOfMove;
     private float _joystickHorizontalValue;
     private float _joystickVerticalValue;
 
-    private void OnEnable()
-    {
-        GlobalEventManager.SearchNewAimEvent.AddListener(SetAimTransform);
-    }
-    private void OnDisable()
-    {
-        GlobalEventManager.SearchNewAimEvent.RemoveListener(SetAimTransform);
-    }
 
     public override void Awake()
     {
         base.Awake();
-
         _inputJoystick = GetComponent<InputJoystick>();
-        _aimsListContainer = GameObject.Find("CaractersController").GetComponent<AimsListContainer>();
+        _aimsPoolContainer = GameObject.Find("CaractersController").GetComponent<AimsPoolContainer>();
+    }
+
+    private void OnEnable()
+    {
+        _aimsPoolContainer.FoundNearestAimOfPlayerEvent += SetNearestAimOfPlayer;
+    }
+    private void OnDisable()
+    {
+        _aimsPoolContainer.FoundNearestAimOfPlayerEvent -= SetNearestAimOfPlayer;
     }
 
     public override void SetStartPosition()
     {
-        _thisTransform.position = new Vector3(0, _thisCharacter.CharacterInfo.DefaultY, _thisCharacter.CommonMapInfo.MapRadius);
+        _thisTransform.position = new Vector3(0, _thisCharacter.characterInfo.defaultY, _thisCharacter.commonMapInfo.mapRadius);
     }
 
-    public override void SetAimTransform()
+    private void SetNearestAimOfPlayer(Transform nearestAimOfPlayer)
     {
-        _aimTransform = _aimsListContainer.GetSortedAimList()[0].SortTransform;
+        _nearestAimOfPlayer = nearestAimOfPlayer;
+    }
+
+    public override Transform GetAimSootTransform()
+    {
+        return _nearestAimOfPlayer;
     }
 
     public override void MoveCharacter()
@@ -48,23 +54,23 @@ public class PlayerMovement : AbsCharacterMovement
         _joystickHorizontalValue = _inputJoystick.GetHorisontalValue();
 
         //Right
-        if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.CommonMapInfo.AngleMapLimit)
+        if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.commonMapInfo.angleMapLimit)
         {
-            _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedMove;
+            _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.characterInfo.speedMove;
         }
 
         //Left
-        if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.CommonMapInfo.AngleMapLimit)
+        if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.commonMapInfo.angleMapLimit)
         {
-            _angleOfMove += Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedMove;
+            _angleOfMove += Time.fixedDeltaTime * _thisCharacter.characterInfo.speedMove;
         }
     }
 
     private Vector3 GetDirectionMovement()
     {
-        _directionMovement.x = (-Mathf.Sin(_angleOfMove)) * _thisCharacter.CommonMapInfo.MapRadius;
+        _directionMovement.x = (-Mathf.Sin(_angleOfMove)) * _thisCharacter.commonMapInfo.mapRadius;
         _directionMovement.y = GetYJump();
-        _directionMovement.z = (-Mathf.Cos(_angleOfMove)) * _thisCharacter.CommonMapInfo.MapRadius;
+        _directionMovement.z = (-Mathf.Cos(_angleOfMove)) * _thisCharacter.commonMapInfo.mapRadius;
         _directionMovement = _mapCenter.position + (_directionMovement);
 
         return _directionMovement;
@@ -74,13 +80,13 @@ public class PlayerMovement : AbsCharacterMovement
     {
         _joystickVerticalValue = _inputJoystick.GetVerticalValue();
 
-        if (_joystickVerticalValue > 0   &&   _thisTransform.position.y <= _thisCharacter.CharacterInfo.HeightJump)
+        if (_joystickVerticalValue > 0   &&   _thisTransform.position.y <= _thisCharacter.characterInfo.heightJump)
         {
-            return _thisTransform.position.y + (Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedJump);
+            return _thisTransform.position.y + (Time.fixedDeltaTime * _thisCharacter.characterInfo.speedJump);
         }
-        if (_joystickVerticalValue <= 0 &&   _thisTransform.position.y > _thisCharacter.CharacterInfo.DefaultY)
+        if (_joystickVerticalValue <= 0 &&   _thisTransform.position.y > _thisCharacter.characterInfo.defaultY)
         {
-            return _thisTransform.position.y - (Time.fixedDeltaTime * _thisCharacter.CharacterInfo.SpeedJump);
+            return _thisTransform.position.y - (Time.fixedDeltaTime * _thisCharacter.characterInfo.speedJump);
         }
 
         return _thisTransform.position.y;

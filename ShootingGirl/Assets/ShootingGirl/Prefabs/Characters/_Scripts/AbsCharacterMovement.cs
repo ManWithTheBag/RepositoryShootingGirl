@@ -4,18 +4,15 @@ using UnityEngine;
 
 public abstract class AbsCharacterMovement : MonoBehaviour
 {
-    [SerializeField]protected Transform _bodyCharacter;
-
     protected AbsCharacter _thisCharacter;
     protected Transform _mapCenter;
     protected Transform _thisTransform;
     protected Vector3 _directionMovement = new Vector3();
     protected Rigidbody _thisRb;
     protected Transform _aimTransform;
-    private Vector3 _aimDirection;
 
-    public Transform AimTransform { get { return _aimTransform; } private set { _aimTransform = value; } }
-
+    //public Transform aimTransform { get { return _aimTransform; } private set { _aimTransform = value; } }
+    public Transform thisCharacterTransform { get { return _thisTransform; } private set { _thisTransform = value; } }
 
     public virtual void  Awake()
     {
@@ -29,7 +26,7 @@ public abstract class AbsCharacterMovement : MonoBehaviour
 
     public virtual void Start()
     {
-        SetAimTransform();
+        GetAimSootTransform();
     }
 
     private void FixedUpdate()
@@ -39,19 +36,7 @@ public abstract class AbsCharacterMovement : MonoBehaviour
 
     public abstract void SetStartPosition();
 
-    public abstract void SetAimTransform();
+    public abstract Transform GetAimSootTransform();
 
     public abstract void MoveCharacter();
-
-    private void LateUpdate()
-    {
-        RotationTurret();
-    }
-
-    private void RotationTurret()
-    {
-        _aimDirection = (_aimTransform.position - _thisTransform.position);
-        _bodyCharacter.rotation = Quaternion.Lerp(_bodyCharacter.rotation, Quaternion.LookRotation(_aimDirection), Time.deltaTime * _thisCharacter.CharacterInfo.SpeedTakeAim);
-    }
-
 }

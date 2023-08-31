@@ -14,12 +14,12 @@ public class EnemyMovement : AbsCharacterMovement
     public override void SetStartPosition()
     {
         Vector3 randomPosition = _randomEnemyPosition.GetRandomPosition();
-        _thisTransform.position = new Vector3(randomPosition.x, _thisCharacter.CharacterInfo.DefaultY, randomPosition.z);
+        _thisTransform.position = new Vector3(randomPosition.x, _thisCharacter.characterInfo.defaultY, randomPosition.z);
     }
 
-    public override void SetAimTransform()
+    public override Transform GetAimSootTransform()
     {
-        _aimTransform = Player.s_playerTransform;
+        return Player.s_playerTransform;
     }
 
     public override void Start()
@@ -30,16 +30,17 @@ public class EnemyMovement : AbsCharacterMovement
 
     public override void MoveCharacter()
     {
+        //TODO Uncomment for move enemys
         //_thisRb.velocity = _randomDirection.normalized * _thisCharacter.CharacterInfo.SpeedMove;
     }
 
     private void GetDirectionMovement()
     {
-        Vector3 tempDirection = _thisTransform.position - _randomEnemyPosition.CenterSpawnEnemy.position;
+        Vector3 tempDirection = _thisTransform.position - _randomEnemyPosition.centerSpawnEnemy.position;
         float angleX = Vector3.Angle(new Vector3(1, 0, 0), tempDirection);
-        Vector3 angle0Position = new Vector3(_thisTransform.position.x, 0, -_thisCharacter.CommonMapInfo.MapRadius);
-        float defaulthypotenuse = _thisCharacter.CommonMapInfo.MapRadius / (Mathf.Cos(_thisCharacter.CommonMapInfo.AngleMapLimit * Mathf.Deg2Rad));
-        float defaultBottomLeg = defaulthypotenuse * (Mathf.Sin(_thisCharacter.CommonMapInfo.AngleMapLimit * Mathf.Deg2Rad));
+        Vector3 angle0Position = new Vector3(_thisTransform.position.x, 0, -_thisCharacter.commonMapInfo.mapRadius);
+        float defaulthypotenuse = _thisCharacter.commonMapInfo.mapRadius / (Mathf.Cos(_thisCharacter.commonMapInfo.angleMapLimit * Mathf.Deg2Rad));
+        float defaultBottomLeg = defaulthypotenuse * (Mathf.Sin(_thisCharacter.commonMapInfo.angleMapLimit * Mathf.Deg2Rad));
 
         float randomX = 0;
         float randomZ = 0;
@@ -70,7 +71,7 @@ public class EnemyMovement : AbsCharacterMovement
 
     private float RightMaxSuitableAngle(Vector3 angle0Position, float defaultBottomLeg)
     {
-        Vector3 angleLimitPositionRight = new Vector3(defaultBottomLeg, 0, -_thisCharacter.CommonMapInfo.MapRadius);
+        Vector3 angleLimitPositionRight = new Vector3(defaultBottomLeg, 0, -_thisCharacter.commonMapInfo.mapRadius);
         float gipABright = Vector3.Distance(_thisTransform.position, angleLimitPositionRight);
         float cutBCright = Vector3.Distance(angle0Position, angleLimitPositionRight);
         //Debug.Log("Right: " + cutBCright + ";     " + gipABright);
@@ -82,7 +83,7 @@ public class EnemyMovement : AbsCharacterMovement
 
     private float LeftMaxSuitableAngle(Vector3 angle0Position, float defaultBottomLeg)
     {
-        Vector3 angleLimitPositionLeft = new Vector3(-defaultBottomLeg, 0, -_thisCharacter.CommonMapInfo.MapRadius);
+        Vector3 angleLimitPositionLeft = new Vector3(-defaultBottomLeg, 0, -_thisCharacter.commonMapInfo.mapRadius);
         float gipABleft = Vector3.Distance(_thisTransform.position, angleLimitPositionLeft);
         float cutBCleft = Vector3.Distance(angle0Position, angleLimitPositionLeft);
         //Debug.Log("Left: " + cutBCleft + ";     " + gipABleft);

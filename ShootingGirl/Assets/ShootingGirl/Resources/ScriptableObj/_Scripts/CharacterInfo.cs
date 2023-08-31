@@ -4,25 +4,23 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName ="CharacterInfo", menuName = "Scriptable Object/Character Info", order = 52)]
 public class CharacterInfo : ScriptableObject
 {
-    [SerializeField] [Min(0)] private float _fullHealth;
+    [SerializeField] [Min(0)] private int _fullHealth;
     [SerializeField] [Min(0)] private float _speedMove;
-    [SerializeField] [Min(0)] private float _speedTakeAim;
     [SerializeField] [Min(0)] private float _speedJump;
     [SerializeField] [Min(0)] private float _heightJump;
     [SerializeField] [Min(0)] private float _defaultY;
     [SerializeField] [Min(0)] private int _scoreInEnemy;
-    [SerializeField] private Image _iconOfEnemy;
+    [SerializeField] private Sprite _iconOfCharacter;
 
 
     
-    public float FullHealth { get { return _fullHealth; } private set { _fullHealth = value; }}
-    public float SpeedMove { get { return _speedMove; } private set { _speedMove = value; }}
-    public float SpeedTakeAim {get { return _speedTakeAim; } private set { _speedTakeAim = value; }}
-    public float SpeedJump { get { return _speedJump; } private set { _speedJump = value; }}
-    public float HeightJump { get { return _heightJump; }private set { _heightJump = value; }}
-    public float DefaultY {get { return _defaultY; } private set { _defaultY = value; }}
-    public int ScoreInEnemy { get { return _scoreInEnemy; } private set { _scoreInEnemy = value; }}
-    public Image IconOfEnemy { get { return _iconOfEnemy; } private set { _iconOfEnemy = value; }}
+    public int fullHealth { get { return _fullHealth; } private set { _fullHealth = value; }}
+    public float speedMove { get { return _speedMove; } private set { _speedMove = value; }}
+    public float speedJump { get { return _speedJump; } private set { _speedJump = value; }}
+    public float heightJump { get { return _heightJump; }private set { _heightJump = value; }}
+    public float defaultY {get { return _defaultY; } private set { _defaultY = value; }}
+    public int scoreInEnemy { get { return _scoreInEnemy; } private set { _scoreInEnemy = value; }}
+    public Sprite iconOfCharacter { get { return _iconOfCharacter; } private set { _iconOfCharacter = value; }}
 
 
 }

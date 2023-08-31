@@ -6,4 +6,5 @@ using UnityEngine.Events;
 public class GlobalEventManager
 {
     public static UnityEvent SearchNewAimEvent = new();
+    public static UnityEvent TestEvent = new();
 }

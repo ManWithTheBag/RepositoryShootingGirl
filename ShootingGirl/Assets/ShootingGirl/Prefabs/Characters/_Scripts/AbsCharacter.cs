@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, IRefreshible, ITakeDamage
+public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, IRefreshible, IVisibleInvisible
 {
     [SerializeField] private CharacterInfo _characterInfo;
     [SerializeField] private CommonMapInfo _commonMapInfo;
@@ -11,29 +11,16 @@ public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, I
     protected Transform _thisTransform;
 
     private AbsCharacterMovement _absCharacterMovement;
-    private ScoreController _scoreController;
-    private float _currentHealth;
 
-    public CharacterInfo CharacterInfo { get { return _characterInfo; } private set { _characterInfo = value; } }
-    public CommonMapInfo CommonMapInfo { get { return _commonMapInfo; } private set { _commonMapInfo = value; } }
-    public float DistancePlayerToAim { get { return _distancePlayerToAim; } private set { _distancePlayerToAim = value; } }
-    public Transform SortTransform { get; private set; }
-
-    private void OnEnable()
-    {
-        _currentHealth = _characterInfo.FullHealth;
-    }
-    private void OnDisable()
-    {
-        
-    }
+    public CharacterInfo characterInfo { get { return _characterInfo; } private set { _characterInfo = value; } }
+    public CommonMapInfo commonMapInfo { get { return _commonMapInfo; } private set { _commonMapInfo = value; } }
+    public float distancePlayerToAim { get { return _distancePlayerToAim; } private set { _distancePlayerToAim = value; } }
+    public Transform thisTransform { get { return _thisTransform; } private set { _thisTransform = value; } }
 
     public virtual void Awake()
     {
         _thisTransform = transform;
-        SortTransform = _thisTransform;
         _absCharacterMovement = GetComponent<AbsCharacterMovement>();
-        _scoreController = GameObject.Find("UIController").GetComponent<ScoreController>();
     }
 
     public void CalculateDistanceAimToPlayer()
@@ -43,23 +30,13 @@ public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, I
 
     public void TotalRefresh()
     {
-        gameObject.SetActive(false);
+        SetVisibleStatusGO(false);
         GlobalEventManager.SearchNewAimEvent.Invoke();
-        _scoreController.AddScore(_characterInfo.ScoreInEnemy);
         _absCharacterMovement.SetStartPosition();
-        gameObject.SetActive(true);
+        //SetVisibleStatusGO(true);
     }
-
-    public void TakeDamage(float damage)
+    public void SetVisibleStatusGO(bool isStatus)
     {
-        _currentHealth -= damage;
-
-        if(_currentHealth <= 0)
-        {
-            TotalRefresh();
-        }
+        gameObject.SetActive(isStatus);
     }
-
-
-
 }

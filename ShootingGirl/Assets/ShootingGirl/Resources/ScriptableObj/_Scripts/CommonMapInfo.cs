@@ -9,7 +9,7 @@ public class CommonMapInfo : ScriptableObject
     [SerializeField] private float _mapRadius;
 
 
-    public float MapRadius { get { return _mapRadius; } private set { _mapRadius = value; }}
-    public float AngleMapLimit { get { return _angleMapLimit; } private set { _angleMapLimit = value; }}
+    public float mapRadius { get { return _mapRadius; } private set { _mapRadius = value; }}
+    public float angleMapLimit { get { return _angleMapLimit; } private set { _angleMapLimit = value; }}
 
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   _range: 100
   _timeRecharge: 1
   _speedTrakeAim: 10
+  _sppedOfShell: 40
