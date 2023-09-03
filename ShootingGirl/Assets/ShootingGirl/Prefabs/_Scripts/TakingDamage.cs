@@ -27,21 +27,11 @@ public class TakingDamage : MonoBehaviour
 
     private void OnEnable()
     {
-        _lerpValue.LerpChengedValueEvent += CheckResult;
+        _lerpValue.LerpChengedValueEvent += GetLerpResult;
     }
     private void OnDisable()
     {
-        _lerpValue.LerpChengedValueEvent -= CheckResult;
-    }
-
-    private void test(float oldScoreValue, float newScoreValue)
-    {
-        _lerpValue.SetNewValue(oldScoreValue, newScoreValue);
-    }
-
-    private void CheckResult(float result)
-    {
-        _absCharacterUiControler.SetCurrentHealth(result);
+        _lerpValue.LerpChengedValueEvent -= GetLerpResult;
     }
 
     public void TakeDamage(float damage)
@@ -49,15 +39,23 @@ public class TakingDamage : MonoBehaviour
         float oldHealthValue = _currentHealth;
         _currentHealth -= damage;
         
-        test(oldHealthValue, _currentHealth);
-
-        //_absCharacterUiControler.SetCurrentHealth(_currentHealth);
+        SetLerpValue(oldHealthValue, _currentHealth);
 
         if (_currentHealth <= 0)
         {
             DeathCharacter();
         }
     }
+
+    private void SetLerpValue(float oldScoreValue, float newScoreValue)
+    {
+        _lerpValue.SetNewValue(oldScoreValue, newScoreValue);
+    }
+    private void GetLerpResult(float result)
+    {
+        _absCharacterUiControler.SetCurrentHealth(result);
+    }
+
 
     private void DeathCharacter()
     {

@@ -11,11 +11,11 @@ public sealed class Coroutines : MonoBehaviour
     {
         get
         {
-            if(_go == null)
+            if(s_instanceLerpValue == null)
             {
-                GameObject perent = GameObject.Find("UtilitiesContainer");
-                _go = Instantiate(new GameObject("[COROUTINE MANAGER]"), perent.transform);
+                _go = Instantiate(new GameObject("[COROUTINE MANAGER]"));
                 s_instanceLerpValue = _go.AddComponent<Coroutines>();
+                DontDestroyOnLoad(_go);
             }
 
             return s_instanceLerpValue;

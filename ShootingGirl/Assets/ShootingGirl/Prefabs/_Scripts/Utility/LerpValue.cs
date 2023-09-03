@@ -49,7 +49,7 @@ public class LerpValue
             yield return null;
         }
 
-        LerpChengedValueEvent?.Invoke(Mathf.RoundToInt(_currentLerpValue));
+        LerpChengedValueEvent?.Invoke(Mathf.RoundToInt(newScoreValue));
 
         _isDoCoroutine = false;
     }

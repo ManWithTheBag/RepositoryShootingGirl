@@ -6,25 +6,21 @@ using UnityEngine.UI;
 
 public class PlayerButtonController : MonoBehaviour
 {
-    [SerializeField] private Button _shotButton;
+    [SerializeField] private ShotButton _shotButton;
+    [SerializeField] private Image _overheatFillImage;
     [SerializeField] private Button _refreshAimButton;
 
-    public event Action ShotPlayerEvent;
+    public ShotButton shotButton { get { return _shotButton; } private set { _shotButton = value; } }
+    public Image overheatFillImage { get { return _overheatFillImage; } private set { _overheatFillImage = value; } }
+
 
     private void OnEnable()
     {
-        _shotButton.onClick.AddListener(ActivateShotButton);
         _refreshAimButton.onClick.AddListener(ActivateRefreshAimButton);
     }
     private void OnDisable()
     {
-        _shotButton.onClick.RemoveListener(ActivateShotButton);
         _refreshAimButton.onClick.RemoveListener(ActivateRefreshAimButton);
-    }
-
-    private void ActivateShotButton()
-    {
-        ShotPlayerEvent?.Invoke();
     }
 
     private void ActivateRefreshAimButton()

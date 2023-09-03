@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 5
   _range: 100
-  _timeRecharge: 1
+  _timeRechargeBullet: 0.2
   _speedTrakeAim: 10
   _sppedOfShell: 40
+  _isCanOverheat: 1
+  _timeCoolingBulletRecharge: 0.2
+  _countBulletToOverheat: 30
+  _timeCoolingOverheat: 5

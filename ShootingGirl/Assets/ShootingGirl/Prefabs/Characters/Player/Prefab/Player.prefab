@@ -146,6 +146,7 @@ MonoBehaviour:
   _weaponModel: {fileID: 3240319532767372996}
   _bodyCharacter: {fileID: 5068290801584509240}
   _firePosition: {fileID: 1812393147246435405}
+  _commonGameInfo: {fileID: 11400000, guid: e584ecc549439264f9a224f956b45b52, type: 2}
 --- !u!114 &-7618659163069087209
 MonoBehaviour:
   m_ObjectHideFlags: 0

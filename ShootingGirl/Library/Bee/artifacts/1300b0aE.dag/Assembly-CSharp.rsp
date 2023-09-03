@@ -403,6 +403,7 @@
 "Assets/ShootingGirl/Prefabs/UI/_Scripts/ProgresBars/EnemyHealthBar.cs"
 "Assets/ShootingGirl/Prefabs/UI/_Scripts/ProgresBars/PlayerHealthBar.cs"
 "Assets/ShootingGirl/Prefabs/UI/_Scripts/ScoreController.cs"
+"Assets/ShootingGirl/Prefabs/UI/_Scripts/ShotButton.cs"
 "Assets/ShootingGirl/Prefabs/_Scripts/GlobalEventManager.cs"
 "Assets/ShootingGirl/Prefabs/_Scripts/IPool.cs"
 "Assets/ShootingGirl/Prefabs/_Scripts/IRefreshible.cs"
