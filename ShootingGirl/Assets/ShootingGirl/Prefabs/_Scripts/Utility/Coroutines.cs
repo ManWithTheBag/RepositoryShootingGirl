@@ -30,6 +30,7 @@ public sealed class Coroutines : MonoBehaviour
 
     public void StopRoutine(Coroutine routine)
     {
-        s_instanceLerpValue.StopCoroutine(routine);
+        if(s_instanceLerpValue != null && routine != null)
+            s_instanceLerpValue.StopCoroutine(routine);
     }
 }

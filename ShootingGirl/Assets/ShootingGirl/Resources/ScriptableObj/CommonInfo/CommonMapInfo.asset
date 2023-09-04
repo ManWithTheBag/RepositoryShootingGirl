@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CommonMapInfo
   m_EditorClassIdentifier: 
   _angleMapLimit: 30
-  _mapRadius: 40
+  _mapRadius: 100

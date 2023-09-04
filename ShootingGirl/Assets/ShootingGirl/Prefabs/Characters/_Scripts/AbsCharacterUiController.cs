@@ -6,27 +6,26 @@ public abstract class AbsCharacterUiController : MonoBehaviour
 {
     protected GameObject _uiController;
     protected AbsCharacter _thisAbsCharacter;
-    protected TakingDamage _takingDamage;
+    protected AbsTakingDamage _absTakingDamage;
     protected AbsUIBarFields _absUIBar;
 
     public virtual void Awake()
     {
         _uiController = GameObject.Find("UIController");
         _thisAbsCharacter = GetComponent<AbsCharacter>();
-        _takingDamage = GetComponent<TakingDamage>();
+        _absTakingDamage = GetComponent<AbsTakingDamage>();
     }
 
 
     public abstract void SetCurrentHealth(float currentHealth);
 
 
-    //TODO chenge logic when willdo several players model
     protected void SetCurrentCharacterData()
     {
-        _absUIBar.imageFill.fillAmount = (_takingDamage.currentHealth / _thisAbsCharacter.characterInfo.fullHealth);
-        _absUIBar.currentText.text = _takingDamage.currentHealth.ToString();
-        _absUIBar.upperLimitText.text = _thisAbsCharacter.characterInfo.fullHealth.ToString();
+        _absUIBar.imageFill.fillAmount = (_absTakingDamage.currentHealth / _thisAbsCharacter.currentCharacterInfo.fullHealth);
+        _absUIBar.currentText.text = _absTakingDamage.currentHealth.ToString();
+        _absUIBar.upperLimitText.text = _thisAbsCharacter.currentCharacterInfo.fullHealth.ToString();
         _absUIBar.lowerLimitText.text = 0.ToString();
-        _absUIBar.iconCharacter.sprite = _thisAbsCharacter.characterInfo.iconOfCharacter;
+        _absUIBar.iconCharacter.sprite = _thisAbsCharacter.currentCharacterInfo.iconOfCharacter;
     }
 }

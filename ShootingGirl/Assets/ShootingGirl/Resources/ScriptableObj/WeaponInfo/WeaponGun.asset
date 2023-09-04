@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: WeaponGun
   m_EditorClassIdentifier: 
   _damage: 5
-  _range: 100
-  _timeRechargeBullet: 0.2
+  _range: 70
+  _timeRechargeBullet: 0.5
   _speedTrakeAim: 10
-  _sppedOfShell: 40
+  _sppedOfShell: 70
   _isCanOverheat: 1
-  _timeCoolingBulletRecharge: 0.2
+  _timeCoolingBulletRecharge: 0.5
   _countBulletToOverheat: 30
   _timeCoolingOverheat: 5

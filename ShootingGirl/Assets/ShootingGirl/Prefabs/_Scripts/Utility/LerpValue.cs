@@ -22,6 +22,11 @@ public class LerpValue
         RefreshScore(oldValue, newValue);
     }
 
+    public void StopCoroutine()
+    {
+        Coroutines.instanceLerpValue.StopRoutine(_routine);
+    }
+
     private void RefreshScore(float oldValue, float newValue)
     {
         if (_isDoCoroutine == true)

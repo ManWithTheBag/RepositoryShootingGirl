@@ -14,24 +14,18 @@ public class EnemyMovement : AbsCharacterMovement
     public override void SetStartPosition()
     {
         Vector3 randomPosition = _randomEnemyPosition.GetRandomPosition();
-        _thisTransform.position = new Vector3(randomPosition.x, _thisCharacter.characterInfo.defaultY, randomPosition.z);
+        _thisTransform.position = new Vector3(randomPosition.x, _thisCharacter.currentCharacterInfo.defaultY, randomPosition.z);
     }
 
-    public override Transform GetAimSootTransform()
+    public void Start()
     {
-        return Player.s_playerTransform;
-    }
-
-    public override void Start()
-    {
-        base.Start();
         GetDirectionMovement();
     }
 
     public override void MoveCharacter()
     {
         //TODO Uncomment for move enemys
-        //_thisRb.velocity = _randomDirection.normalized * _thisCharacter.CharacterInfo.SpeedMove;
+        _thisRb.velocity = _randomDirection.normalized * _thisCharacter.currentCharacterInfo.speedMove;
     }
 
     private void GetDirectionMovement()

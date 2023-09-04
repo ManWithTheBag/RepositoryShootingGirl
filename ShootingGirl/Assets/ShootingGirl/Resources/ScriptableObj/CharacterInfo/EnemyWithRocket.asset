@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237b88a8f5ad995449a179d0f036a839, type: 3}
   m_Name: EnemyWithRocket
   m_EditorClassIdentifier: 
+  _nameOfCharacter: EnemyWithRocket
+  _typePlayerModel: 0
+  _prefabOfCharacter: {fileID: 1411233332466125259, guid: 3fc7a92922e30c944a2fc84e83621538,
+    type: 3}
   _fullHealth: 100
   _defaultY: 3
   _scoreInEnemy: 15

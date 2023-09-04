@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CommonGameInfo
   m_EditorClassIdentifier: 
   _destroyDistanceShell: 500
-  _timeLerpingValue: 3
+  _timeLerpingValue: 1.5

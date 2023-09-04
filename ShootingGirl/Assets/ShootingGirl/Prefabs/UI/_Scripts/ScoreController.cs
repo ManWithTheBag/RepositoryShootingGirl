@@ -7,26 +7,12 @@ public class ScoreController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private CommonGameInfo _commonGameInfo;
 
+    private bool _isDoCoroutine;
+    private float _currentLerpValue;
     private int _updatedScore;
     private int _oldScore;
-    private LerpValue _lerpValue;
 
     public int currentScore { get { return _updatedScore; }private set { _updatedScore = value; }}
-
-    private void Awake()
-    {
-        _lerpValue = new LerpValue(_commonGameInfo.timeLerpingValue);
-    }
-
-    private void OnEnable()
-    {
-        _lerpValue.LerpChengedValueEvent += GetLerpResult;
-    }
-    private void OnDisable()
-    {
-        _lerpValue.LerpChengedValueEvent -= GetLerpResult;
-    }
-
 
     private void Start()
     {
@@ -38,7 +24,7 @@ public class ScoreController : MonoBehaviour
     {
         _oldScore = _updatedScore;
         _updatedScore += addScore;
-        SetLerpValue(_oldScore, _updatedScore);
+        LerpScore(_oldScore, _updatedScore);
 
     }
 
@@ -46,12 +32,38 @@ public class ScoreController : MonoBehaviour
     {
         _oldScore = _updatedScore;
         _updatedScore -= loseScore;
-        SetLerpValue(_oldScore, _updatedScore);
+        LerpScore(_oldScore, _updatedScore);
     }
 
-    private void SetLerpValue(int oldScoreValue, int newScoreValue)
+    private void LerpScore(float oldValue, float newValue)
     {
-        _lerpValue.SetNewValue(oldScoreValue, newScoreValue);
+        if (_isDoCoroutine == true)
+        {
+            StopAllCoroutines();
+
+            oldValue = Mathf.RoundToInt(_currentLerpValue);
+            StartCoroutine(LerpValue(oldValue, newValue));
+        }
+        else
+        {
+            StartCoroutine(LerpValue(oldValue, newValue));
+        }
+    }
+
+    private IEnumerator LerpValue(float oldScoreValue, float newScoreValue)
+    {
+        _isDoCoroutine = true;
+
+        for (float i = 0; i < 1; i += Time.deltaTime / _commonGameInfo.timeLerpingValue)
+        {
+            _currentLerpValue = Mathf.Lerp(oldScoreValue, newScoreValue, i);
+            GetLerpResult(_currentLerpValue);
+            yield return null;
+        }
+
+        GetLerpResult(newScoreValue);
+
+        _isDoCoroutine = false;
     }
 
     private void GetLerpResult(float result)

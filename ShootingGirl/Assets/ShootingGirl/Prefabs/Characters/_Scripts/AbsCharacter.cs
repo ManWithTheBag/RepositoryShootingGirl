@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, IRefreshible, IVisibleInvisible
 {
-    [SerializeField] private CharacterInfo _characterInfo;
     [SerializeField] private CommonMapInfo _commonMapInfo;
-
+    
+    protected CharacterInfo _currentCharacterInfo;
     protected float _distancePlayerToAim;
     protected Transform _thisTransform;
 
     private AbsCharacterMovement _absCharacterMovement;
 
-    public CharacterInfo characterInfo { get { return _characterInfo; } private set { _characterInfo = value; } }
+    public CharacterInfo currentCharacterInfo { get { return _currentCharacterInfo; } private set { _currentCharacterInfo = value; } }
     public CommonMapInfo commonMapInfo { get { return _commonMapInfo; } private set { _commonMapInfo = value; } }
     public float distancePlayerToAim { get { return _distancePlayerToAim; } private set { _distancePlayerToAim = value; } }
     public Transform thisTransform { get { return _thisTransform; } private set { _thisTransform = value; } }
@@ -33,7 +33,8 @@ public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, I
         SetVisibleStatusGO(false);
         GlobalEventManager.SearchNewAimEvent.Invoke();
         _absCharacterMovement.SetStartPosition();
-        //SetVisibleStatusGO(true);
+        //TODO Comment for not spawn new enemys
+        SetVisibleStatusGO(true);
     }
     public void SetVisibleStatusGO(bool isStatus)
     {

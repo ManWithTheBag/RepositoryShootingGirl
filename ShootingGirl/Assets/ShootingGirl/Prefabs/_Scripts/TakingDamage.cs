@@ -4,63 +4,99 @@ using UnityEngine;
 
 public class TakingDamage : MonoBehaviour
 {
-    [SerializeField] private CommonGameInfo _commonGameInfo;
+    //[SerializeField] private CommonGameInfo _commonGameInfo;
 
-    private GameObject _uiController;
-    private AbsCharacter _thisCharacter;
-    private ScoreController _scoreController;
-    private AbsCharacterUiController _absCharacterUiControler;
-    private float _currentHealth;
-    private LerpValue _lerpValue;
+    //private AbsPlayerBaseModetState _currentPlayerModelState;
+    //private GameObject _uiController;
+    //private AbsCharacter _thisCharacter;
+    //private ScoreController _scoreController;
+    //private AbsCharacterUiController _absCharacterUiControler;
+    //private float _currentHealth;
+    //private bool _isDoCoroutine;
+    //private float _currentLerpValue;
 
-    public float currentHealth { get { return _currentHealth; } private set { _currentHealth = value; } }
+    //public float currentHealth { get { return _currentHealth; } private set { _currentHealth = value; } }
 
-    private void Awake()
-    {
-        _thisCharacter = GetComponent<AbsCharacter>();
-        _uiController = GameObject.Find("UIController");
-        _scoreController = _uiController.GetComponent<ScoreController>();
-        _absCharacterUiControler = GetComponent<AbsCharacterUiController>();
-        _currentHealth = _thisCharacter.characterInfo.fullHealth;
-        _lerpValue = new LerpValue(_commonGameInfo.timeLerpingValue);
-    }
+    //private void Awake()
+    //{
+    //    _thisCharacter = GetComponent<AbsCharacter>();
+    //    _uiController = GameObject.Find("UIController");
+    //    _scoreController = _uiController.GetComponent<ScoreController>();
+    //    _absCharacterUiControler = GetComponent<AbsCharacterUiController>();
+    //    _currentHealth = _thisCharacter.currentCharacterInfo.fullHealth;
+    //}
 
-    private void OnEnable()
-    {
-        _lerpValue.LerpChengedValueEvent += GetLerpResult;
-    }
-    private void OnDisable()
-    {
-        _lerpValue.LerpChengedValueEvent -= GetLerpResult;
-    }
+    //private void OnEnable()
+    //{
+    //    GlobalEventManager.ChangePlayerModelStateEvent.AddListener(SetCurrentPlayerModelState);
+    //}
+    //private void OnDisable()
+    //{
+    //    GlobalEventManager.ChangePlayerModelStateEvent.RemoveListener(SetCurrentPlayerModelState);
+    //}
 
-    public void TakeDamage(float damage)
-    {
-        float oldHealthValue = _currentHealth;
-        _currentHealth -= damage;
-        
-        SetLerpValue(oldHealthValue, _currentHealth);
+    //private void SetCurrentPlayerModelState(PlayerModelEnum playerModelEnum)
+    //{
+    //    _currentPlayerModelState = PlayerModelSwitcher.s_playerModelStateDictionary[playerModelEnum];
+    //    _currentHealth = _currentPlayerModelState.currentHealthThisModel;
 
-        if (_currentHealth <= 0)
-        {
-            DeathCharacter();
-        }
-    }
+    //    StopAllCoroutines();
+    //    _absCharacterUiControler.SetCurrentHealth(_currentHealth);
 
-    private void SetLerpValue(float oldScoreValue, float newScoreValue)
-    {
-        _lerpValue.SetNewValue(oldScoreValue, newScoreValue);
-    }
-    private void GetLerpResult(float result)
-    {
-        _absCharacterUiControler.SetCurrentHealth(result);
-    }
+    //}
+
+    //public void TakeDamage(float damage)
+    //{
+    //    float oldHealthValue = _currentHealth;
+    //    _currentHealth -= damage;
+
+    //    SaveCurrentHealthThisModel(_currentHealth);
+
+    //    StartLerpValues(oldHealthValue, _currentHealth);
 
 
-    private void DeathCharacter()
-    {
-        _thisCharacter.TotalRefresh();
-        _scoreController.AddScore(_thisCharacter.characterInfo.scoreInEnemy);
-        _currentHealth = _thisCharacter.characterInfo.fullHealth;
-    }
+    //    if (_currentHealth <= 0)
+    //        DeathCharacter();
+    //}
+
+    //private void SaveCurrentHealthThisModel(float currentHealth)
+    //{
+    //    _currentPlayerModelState.SetCurrentHealthForThisModel(currentHealth);
+    //}
+
+    //private void StartLerpValues(float oldValue, float newValue)
+    //{
+    //    if (_isDoCoroutine == true)
+    //    {
+    //        StopAllCoroutines();
+    //        StartCoroutine(LerpValue(oldValue, newValue));
+    //    }
+    //    else
+    //    {
+    //        StartCoroutine(LerpValue(oldValue, newValue));
+    //    }
+    //}
+
+    //private IEnumerator LerpValue(float oldScoreValue, float newScoreValue)
+    //{
+    //    _isDoCoroutine = true;
+
+    //    for (float i = 0; i < 1; i += Time.deltaTime / _commonGameInfo.timeLerpingValue)
+    //    {
+    //        _currentLerpValue = Mathf.Lerp(oldScoreValue, newScoreValue, i);
+    //        _absCharacterUiControler.SetCurrentHealth(_currentLerpValue);
+    //        yield return null;
+    //    }
+
+    //    _absCharacterUiControler.SetCurrentHealth(newScoreValue);
+
+    //    _isDoCoroutine = false;
+    //}
+
+    //private void DeathCharacter()
+    //{
+    //    _thisCharacter.TotalRefresh();
+    //    _scoreController.AddScore(_thisCharacter.currentCharacterInfo.scoreInEnemy);
+    //    _currentHealth = _thisCharacter.currentCharacterInfo.fullHealth;
+    //}
 }

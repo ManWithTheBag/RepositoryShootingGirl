@@ -5,54 +5,37 @@ using UnityEngine;
 public abstract class AbsWeapon : MonoBehaviour
 {
     [SerializeField] protected WeaponInfo _weaponInfo;
-    [SerializeField] private Transform _weaponModel;
-    [SerializeField] protected Transform _bodyCharacter;
     [SerializeField] protected Transform _firePosition;
 
+    protected AbsCharacter _absCharacter;
     protected ShellPoolContainer _shellPoolContainer;
     protected IPool<AbsShell> _absShell;
-    protected AbsCharacter _absCharacter;
+    protected Transform _aimShotTransform;
     protected Vector3 _aimDirection;
 
-
-    private AbsCharacterMovement _absCharacterMovement;
-
     //Shot timer condition
-    protected float _timeRechargeBullet;
-    protected float _timeCoolingOverheat;
-    protected float _timeCoolingBulletRecharge;
-    protected float _countBulletToOverheat;
-    protected bool _isCanOverheat;
     private float _currentTimeRechargeBullet;
     private float _currentTimeCoolingOverheat;
-    protected int _currentCountBulletToOverheat;
+    private int _currentCountBulletToOverheat;
     private float _currentTimeCoolingBulletRecharge;
 
+    public WeaponInfo weaponInfo { get { return _weaponInfo; } private set { _weaponInfo = value; } }
+    public Transform aimShotTransform { get { return _aimShotTransform; } private set { _aimShotTransform = value; } }
 
     public virtual void Awake()
     {
         _shellPoolContainer = GameObject.Find("ShellCotroller").GetComponent<ShellPoolContainer>();
-        _absCharacterMovement = GetComponent<AbsCharacterMovement>();
-        _absCharacter = GetComponent<AbsCharacter>();
+        SetAbsCharacter();
         SetShellForWeapon();
-        SetTimeBetweenShot();
-        SetIsCanOverheat();
-        SetCountBulletToIverheat();
-        SetTimeCoolingBulletRecharge();
-        SetTimeCoolingOverheat();
+    }
+    private void Start()
+    {
+        SetAimSootTransform();
     }
 
-    #region Setup kind of Weapon
-
+    public abstract void SetAbsCharacter();
     public abstract void SetShellForWeapon();
-    public abstract void SetTimeBetweenShot();
-    public abstract void SetIsCanOverheat();
-    public abstract void SetCountBulletToIverheat();
-    public abstract void SetTimeCoolingBulletRecharge();
-    public abstract void SetTimeCoolingOverheat();
-
-    public abstract bool CheckPersonalWeaponCondition();
-    #endregion
+    public abstract void SetAimSootTransform();
 
     #region Check Weapon Conditions like: Recharge and Overheat;
 
@@ -62,10 +45,11 @@ public abstract class AbsWeapon : MonoBehaviour
     }
     private void ChechOverheat()
     {
-        if (_isCanOverheat)
+        if (_weaponInfo.isCanOverheat)
         {
-            if (_currentCountBulletToOverheat <= _countBulletToOverheat)
+            if (_currentCountBulletToOverheat <= _weaponInfo.countBulletToOverheat)
             {
+                CalculateAimDirection();
                 CheckShotWeaponCondition();
             }
             else
@@ -75,6 +59,7 @@ public abstract class AbsWeapon : MonoBehaviour
         }
         else
         {
+            CalculateAimDirection();
             CheckShotWeaponCondition();
         }
     }
@@ -85,7 +70,7 @@ public abstract class AbsWeapon : MonoBehaviour
             Shot();
 
             _currentCountBulletToOverheat ++;
-            SetLerpValue(_currentCountBulletToOverheat, _countBulletToOverheat, false);
+            SetLerpValue(_currentCountBulletToOverheat, _weaponInfo.countBulletToOverheat, false);
         }
 
         if (CheckTimeCoolingBulletRecharge() && CheckPersonalWeaponCondition() == false)
@@ -93,7 +78,7 @@ public abstract class AbsWeapon : MonoBehaviour
             if (_currentCountBulletToOverheat > 0)
             {
                 _currentCountBulletToOverheat --;
-                SetLerpValue(_currentCountBulletToOverheat, _countBulletToOverheat, false);
+                SetLerpValue(_currentCountBulletToOverheat, _weaponInfo.countBulletToOverheat, false);
             }
         }
     }
@@ -105,27 +90,28 @@ public abstract class AbsWeapon : MonoBehaviour
         }
         else
         {
-            SetLerpValue(_currentTimeCoolingOverheat, _timeCoolingOverheat, true);
+            SetLerpValue(_currentTimeCoolingOverheat, _weaponInfo.timeCoolingOverheat, true);
         }
     }
 
     #endregion
+    public abstract bool CheckPersonalWeaponCondition();
 
     #region Timer Region
 
     private bool CheckTimeRechargeBullet()
     {
-        return DefaultTimer(ref _currentTimeRechargeBullet, _timeRechargeBullet);
+        return DefaultTimer(ref _currentTimeRechargeBullet, _weaponInfo.timeRechargeBullet);
     }
 
     private bool CheckTimeCoolingBulletRecharge()
     {
-        return DefaultTimer(ref _currentTimeCoolingBulletRecharge, _timeCoolingBulletRecharge);
+        return DefaultTimer(ref _currentTimeCoolingBulletRecharge, _weaponInfo.timeCoolingBulletRecharge);
     }
     
     private bool CheckTimeCoolingOverheat()
     {
-        return DefaultTimer(ref _currentTimeCoolingOverheat, _timeCoolingOverheat);
+        return DefaultTimer(ref _currentTimeCoolingOverheat, _weaponInfo.timeCoolingOverheat);
     }
 
     private bool DefaultTimer(ref float currentValue, float defaultValue)
@@ -142,33 +128,16 @@ public abstract class AbsWeapon : MonoBehaviour
         }
     }
     #endregion
+
     public virtual void SetLerpValue(float currentValue, float defaultValue, bool isRevers) { }
 
-    #region Take Aim Model and Weapon
-
-    private void LateUpdate()
+    private void CalculateAimDirection()
     {
-        TakeAimVeaponModel();
-        TakeAimBody();
+        _aimDirection = (_aimShotTransform.position - _firePosition.position);
     }
-    private void TakeAimVeaponModel()
-    {
-        _aimDirection = (_absCharacterMovement.GetAimSootTransform().position - _weaponModel.position);
-        _weaponModel.rotation = Quaternion.Lerp(_weaponModel.rotation, Quaternion.LookRotation(_aimDirection), Time.fixedDeltaTime * _weaponInfo.speedTrakeAim);
-    }
-    private void TakeAimBody()
-    {
-        _aimDirection = (_absCharacterMovement.GetAimSootTransform().position - _absCharacter.thisTransform.position);
-        _bodyCharacter.rotation = Quaternion.Lerp(_bodyCharacter.rotation, Quaternion.LookRotation(_aimDirection), Time.fixedDeltaTime * _weaponInfo.speedTrakeAim);
-    }
-
-    #endregion
 
     protected void Shot()
     {
-        //Physics.Raycast(_firePosition.position, _aimDirection, out _hit, Mathf.Infinity);
-        //_hit.transform.TryGetComponent(out ITakeDamage iTakeDamage);
-
         AbsShell shell = _absShell.GetElement();
         shell._thisTransform.position = _firePosition.position;
         shell._thisTransform.rotation = _firePosition.rotation;

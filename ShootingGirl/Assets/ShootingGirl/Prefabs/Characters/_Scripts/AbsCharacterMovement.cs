@@ -11,7 +11,6 @@ public abstract class AbsCharacterMovement : MonoBehaviour
     protected Rigidbody _thisRb;
     protected Transform _aimTransform;
 
-    //public Transform aimTransform { get { return _aimTransform; } private set { _aimTransform = value; } }
     public Transform thisCharacterTransform { get { return _thisTransform; } private set { _thisTransform = value; } }
 
     public virtual void  Awake()
@@ -24,19 +23,12 @@ public abstract class AbsCharacterMovement : MonoBehaviour
         SetStartPosition();
     }
 
-    public virtual void Start()
-    {
-        GetAimSootTransform();
-    }
-
     private void FixedUpdate()
     {
         MoveCharacter();
     }
 
     public abstract void SetStartPosition();
-
-    public abstract Transform GetAimSootTransform();
 
     public abstract void MoveCharacter();
 }

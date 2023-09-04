@@ -12,7 +12,7 @@ public class EnemyUiController : AbsCharacterUiController
     {
         base.Awake();
         _aimsPoolContainer = GameObject.Find("CaractersController").GetComponent<AimsPoolContainer>();
-        _absUIBar = _uiController.GetComponent<EnemyHealthBar>();
+        _absUIBar = _uiController.GetComponent<EnemyHealthBarFields>();
         _thisGO = gameObject;
     }
 
@@ -43,7 +43,7 @@ public class EnemyUiController : AbsCharacterUiController
         if (_isSelected)
         {
             _absUIBar.currentText.text = Mathf.RoundToInt(currentHealth).ToString();
-            _absUIBar.imageFill.fillAmount = currentHealth / _thisAbsCharacter.characterInfo.fullHealth;
+            _absUIBar.imageFill.fillAmount = currentHealth / _thisAbsCharacter.currentCharacterInfo.fullHealth;
         }
     }
 

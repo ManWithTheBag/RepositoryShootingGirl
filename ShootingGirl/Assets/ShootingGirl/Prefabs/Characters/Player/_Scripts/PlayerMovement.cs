@@ -5,42 +5,20 @@ using UnityEngine;
 public class PlayerMovement : AbsCharacterMovement
 {
     private InputJoystick _inputJoystick;
-    private AimsPoolContainer _aimsPoolContainer;
-    private Transform _nearestAimOfPlayer;
     private float _angleOfMove;
     private float _joystickHorizontalValue;
     private float _joystickVerticalValue;
-
+    private float _yPosition;
 
     public override void Awake()
     {
         base.Awake();
         _inputJoystick = GetComponent<InputJoystick>();
-        _aimsPoolContainer = GameObject.Find("CaractersController").GetComponent<AimsPoolContainer>();
-    }
-
-    private void OnEnable()
-    {
-        _aimsPoolContainer.FoundNearestAimOfPlayerEvent += SetNearestAimOfPlayer;
-    }
-    private void OnDisable()
-    {
-        _aimsPoolContainer.FoundNearestAimOfPlayerEvent -= SetNearestAimOfPlayer;
     }
 
     public override void SetStartPosition()
     {
-        _thisTransform.position = new Vector3(0, _thisCharacter.characterInfo.defaultY, _thisCharacter.commonMapInfo.mapRadius);
-    }
-
-    private void SetNearestAimOfPlayer(Transform nearestAimOfPlayer)
-    {
-        _nearestAimOfPlayer = nearestAimOfPlayer;
-    }
-
-    public override Transform GetAimSootTransform()
-    {
-        return _nearestAimOfPlayer;
+        _thisTransform.position = new Vector3(0, _thisCharacter.currentCharacterInfo.defaultY, _thisCharacter.commonMapInfo.mapRadius);
     }
 
     public override void MoveCharacter()
@@ -56,13 +34,13 @@ public class PlayerMovement : AbsCharacterMovement
         //Right
         if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.commonMapInfo.angleMapLimit)
         {
-            _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.characterInfo.speedMove;
+            _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedMove;
         }
 
         //Left
         if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.commonMapInfo.angleMapLimit)
         {
-            _angleOfMove += Time.fixedDeltaTime * _thisCharacter.characterInfo.speedMove;
+            _angleOfMove += Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedMove;
         }
     }
 
@@ -80,13 +58,23 @@ public class PlayerMovement : AbsCharacterMovement
     {
         _joystickVerticalValue = _inputJoystick.GetVerticalValue();
 
-        if (_joystickVerticalValue > 0   &&   _thisTransform.position.y <= _thisCharacter.characterInfo.heightJump)
+        if (_joystickVerticalValue > 0   &&   _thisTransform.position.y <= _thisCharacter.currentCharacterInfo.heightJump)
         {
-            return _thisTransform.position.y + (Time.fixedDeltaTime * _thisCharacter.characterInfo.speedJump);
+            return _thisTransform.position.y + (Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedJump);
         }
-        if (_joystickVerticalValue <= 0 &&   _thisTransform.position.y > _thisCharacter.characterInfo.defaultY)
+
+        if (_joystickVerticalValue <= 0 )
         {
-            return _thisTransform.position.y - (Time.fixedDeltaTime * _thisCharacter.characterInfo.speedJump);
+            _yPosition = _thisTransform.position.y - (Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedJump);
+
+            if (_yPosition <= _thisCharacter.currentCharacterInfo.defaultY)
+            {
+                return _thisCharacter.currentCharacterInfo.defaultY;
+            }
+            else
+            {
+                return _yPosition;
+            }
         }
 
         return _thisTransform.position.y;

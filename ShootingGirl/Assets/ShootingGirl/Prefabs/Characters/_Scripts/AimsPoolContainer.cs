@@ -11,6 +11,7 @@ public class AimsPoolContainer : MonoBehaviour
     private DistanceToAimComparer _distanceToAimComparer = new();
     private List<IDistanceToAimsComparable> _allAimList = new();
     private List<IDistanceToAimsComparable> _activeAimList = new();
+    private List<IDistanceToAimsComparable> _sortedActiveAimList = new();
     private Transform _nearestAimOfPlayer;
 
     public event Action<Transform> FoundNearestAimOfPlayerEvent;
@@ -24,7 +25,6 @@ public class AimsPoolContainer : MonoBehaviour
         GlobalEventManager.SearchNewAimEvent.RemoveListener(SetNearestAimOfPlayer);
     }
 
-
     private void Start()
     {
         CreateCommonAimList();
@@ -33,8 +33,13 @@ public class AimsPoolContainer : MonoBehaviour
 
     private void SetNearestAimOfPlayer()
     {
-        _nearestAimOfPlayer = GetSortedActiveAimList()[0].thisTransform;
-        FoundNearestAimOfPlayerEvent?.Invoke(_nearestAimOfPlayer);
+        _sortedActiveAimList = GetSortedActiveAimList();
+
+        if(_sortedActiveAimList.Count != 0)
+        {
+            _nearestAimOfPlayer = _sortedActiveAimList[0].thisTransform;
+            FoundNearestAimOfPlayerEvent?.Invoke(_nearestAimOfPlayer);
+        }
     }
 
     public List<IDistanceToAimsComparable> GetSortedActiveAimList()

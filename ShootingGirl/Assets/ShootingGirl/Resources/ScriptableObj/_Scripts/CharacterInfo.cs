@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class CharacterInfo : ScriptableObject
 {
     [Header("Deault data")]
+    [SerializeField] private string _nameOfCharacter;
+    [SerializeField] private PlayerModelEnum _typePlayerModel;
+    [SerializeField] private GameObject _prefabOfCharacter;
     [SerializeField] [Min(0)] private int _fullHealth;
     [SerializeField] [Min(0)] private float _defaultY;
     [SerializeField] [Min(0)] private int _scoreInEnemy;
@@ -18,7 +21,9 @@ public class CharacterInfo : ScriptableObject
 
 
 
-    
+    public string nameOfCharacter { get { return _nameOfCharacter; } private set { _nameOfCharacter = value; }}
+    public PlayerModelEnum typePlayerModel { get { return _typePlayerModel; } private set { _typePlayerModel = value; } }
+    public GameObject prefabOfCharacter { get { return _prefabOfCharacter; } private set { _prefabOfCharacter = value; } }
     public int fullHealth { get { return _fullHealth; } private set { _fullHealth = value; }}
     public float defaultY {get { return _defaultY; } private set { _defaultY = value; }}
     public int scoreInEnemy { get { return _scoreInEnemy; } private set { _scoreInEnemy = value; }}
