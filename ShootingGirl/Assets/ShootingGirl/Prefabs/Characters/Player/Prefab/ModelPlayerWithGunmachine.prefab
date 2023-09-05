@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7520545569550034793}
   - component: {fileID: 8939339799737082920}
-  - component: {fileID: -3146007593085675791}
+  - component: {fileID: 2296891703802311378}
   - component: {fileID: -5047613843027108908}
   m_Layer: 0
   m_Name: ModelPlayerWithGunmachine
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterInfo: {fileID: 11400000, guid: 209b41474eb4ee34b8ba487a31074e4d, type: 2}
---- !u!114 &-3146007593085675791
+--- !u!114 &2296891703802311378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,10 +58,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411233332466125259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeea4123f5ce029449dd3ee7160ddaed, type: 3}
+  m_Script: {fileID: 11500000, guid: 28fa8467f0db73048bc2d8fa1ea8d3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponInfo: {fileID: 11400000, guid: 1aa35dea6180a194499b2907f476f4dd, type: 2}
+  _weaponInfo: {fileID: 11400000, guid: d47283044e2a5264d9ddbc16f5c0a798, type: 2}
   _firePosition: {fileID: 1812393147246435405}
 --- !u!114 &-5047613843027108908
 MonoBehaviour:

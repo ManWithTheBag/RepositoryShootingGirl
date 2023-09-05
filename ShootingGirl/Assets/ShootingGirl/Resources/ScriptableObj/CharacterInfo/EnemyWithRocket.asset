@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyWithRocket
   m_EditorClassIdentifier: 
   _nameOfCharacter: EnemyWithRocket
-  _typePlayerModel: 0
+  _typePlayerModel: 3
   _prefabOfCharacter: {fileID: 1411233332466125259, guid: 3fc7a92922e30c944a2fc84e83621538,
     type: 3}
   _fullHealth: 100

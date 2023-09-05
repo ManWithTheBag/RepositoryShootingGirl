@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7520545569550034793}
   - component: {fileID: -1666244107288938365}
-  - component: {fileID: -3146007593085675791}
+  - component: {fileID: 1686729178866593451}
   - component: {fileID: -5047613843027108908}
   m_Layer: 0
   m_Name: ModelPlayerWithRocket
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterInfo: {fileID: 11400000, guid: f10c1d906ad947c4b9a25556144d6e78, type: 2}
---- !u!114 &-3146007593085675791
+--- !u!114 &1686729178866593451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,10 +58,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411233332466125259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeea4123f5ce029449dd3ee7160ddaed, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f5f0e33b1359ce438aa1be94e579e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponInfo: {fileID: 11400000, guid: 1aa35dea6180a194499b2907f476f4dd, type: 2}
+  _weaponInfo: {fileID: 11400000, guid: c730c345205962a4585474ef839dc6e2, type: 2}
   _firePosition: {fileID: 1812393147246435405}
 --- !u!114 &-5047613843027108908
 MonoBehaviour:
@@ -335,7 +335,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2371420335681056000}

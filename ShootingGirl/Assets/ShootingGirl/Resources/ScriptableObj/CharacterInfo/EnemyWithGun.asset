@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyWithGun
   m_EditorClassIdentifier: 
   _nameOfCharacter: EnemyWithGun
-  _typePlayerModel: 0
+  _typePlayerModel: 3
   _prefabOfCharacter: {fileID: 1411233332466125259, guid: 4523a76931f098c48bdaeb234a7d33bf,
     type: 3}
   _fullHealth: 60

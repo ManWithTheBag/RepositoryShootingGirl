@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerWithGun
   m_EditorClassIdentifier: 
   _nameOfCharacter: Nuna
-  _typePlayerModel: 1
+  _typePlayerModel: 0
   _prefabOfCharacter: {fileID: 1411233332466125259, guid: 365a02282db60d849acf18ab010b82af,
     type: 3}
   _fullHealth: 200

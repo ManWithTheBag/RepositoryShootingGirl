@@ -10,6 +10,7 @@ public abstract class AbsTakingDamage : MonoBehaviour
     protected float _currentHealth;
     protected AbsCharacterUiController _absCharacterUiControler;
 
+    protected Coroutine _healthCoroutine;
     private bool _isDoCoroutine;
     private float _currentLerpValue;
 
@@ -41,12 +42,12 @@ public abstract class AbsTakingDamage : MonoBehaviour
     {
         if (_isDoCoroutine == true)
         {
-            StopAllCoroutines();
-            StartCoroutine(LerpValue(oldValue, newValue));
+            StopCoroutine(_healthCoroutine);
+            _healthCoroutine = StartCoroutine(LerpValue(oldValue, newValue));
         }
         else
         {
-            StartCoroutine(LerpValue(oldValue, newValue));
+            _healthCoroutine = StartCoroutine(LerpValue(oldValue, newValue));
         }
     }
 

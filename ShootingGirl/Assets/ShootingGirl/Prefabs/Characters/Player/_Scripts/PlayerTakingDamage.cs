@@ -20,7 +20,9 @@ public class PlayerTakingDamage : AbsTakingDamage
         _currentPlayerModelState = PlayerModelSwitcher.s_playerModelStateDictionary[playerModelEnum];
         _currentHealth = _currentPlayerModelState.currentHealthThisModel;
 
-        StopAllCoroutines();
+        if(_healthCoroutine != null)
+            StopCoroutine(_healthCoroutine);
+
         _absCharacterUiControler.SetCurrentHealth(_currentHealth);
     }
 

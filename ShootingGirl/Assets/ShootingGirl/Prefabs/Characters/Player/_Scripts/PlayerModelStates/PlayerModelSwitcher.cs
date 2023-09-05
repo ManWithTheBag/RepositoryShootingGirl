@@ -9,27 +9,23 @@ public class PlayerModelSwitcher : MonoBehaviour
     public static Dictionary<PlayerModelEnum, AbsPlayerBaseModetState> s_playerModelStateDictionary = new();
 
     private AbsPlayerBaseModetState _currentPlayerModelState;
-    private PlayerButtonController _playerButtonController;
+    private PlayerModelScrollView _playerModelScrollView;
 
     private void Awake()
     {
-        _playerButtonController = GameObject.Find("UIController").GetComponent<PlayerButtonController>();
+        _playerModelScrollView = GameObject.Find("UIController").GetComponent<PlayerModelScrollView>();
         InitPlayerModelState();
         SetPlayerModelStateByDefault();
     }
 
     private void OnEnable()
     {
-        _playerButtonController.activalePlayerWithGun.onClick.AddListener(SetPlayerWithGun);
-        _playerButtonController.activatePlayerWithGunmachine.onClick.AddListener(SetPlayerWithGanmachine);
-        _playerButtonController.activatePlayerWothRocket.onClick.AddListener(SetPlayerWithRocket);
+        _playerModelScrollView.playerModelScrollView.SetPlayerModelStateEvent.AddListener(SelectPlayerModelState);
 
     }
     private void OnDisable()
     {
-        _playerButtonController.activalePlayerWithGun.onClick.RemoveListener(SetPlayerWithGun);
-        _playerButtonController.activatePlayerWithGunmachine.onClick.RemoveListener(SetPlayerWithGanmachine);
-        _playerButtonController.activatePlayerWothRocket.onClick.RemoveListener(SetPlayerWithRocket);
+        _playerModelScrollView.playerModelScrollView.SetPlayerModelStateEvent.RemoveListener(SelectPlayerModelState);
     }
 
     private void Start()
@@ -53,6 +49,11 @@ public class PlayerModelSwitcher : MonoBehaviour
         SetPlayerModelState(PlayerModelEnum.PlayerWithGun);
     }
 
+    private void SelectPlayerModelState(int indexModel)
+    {
+        SetPlayerModelState((PlayerModelEnum)indexModel);
+    }
+
     private void SetPlayerModelState(PlayerModelEnum playerModelEnum)
     {
         if (_currentPlayerModelState != null)
@@ -68,19 +69,5 @@ public class PlayerModelSwitcher : MonoBehaviour
 
         GlobalEventManager.ChangePlayerModelStateEvent.Invoke(playerModelEnum);
         GlobalEventManager.SearchNewAimEvent.Invoke();
-    }
-
-    private void SetPlayerWithGun()
-    {
-        SetPlayerModelState(PlayerModelEnum.PlayerWithGun);
-    }
-    private void SetPlayerWithGanmachine()
-    {
-        SetPlayerModelState(PlayerModelEnum.PlayerWithGunmachine);
-
-    }
-    private void SetPlayerWithRocket()
-    {
-        SetPlayerModelState(PlayerModelEnum.PlayerWithRocket);
     }
 }

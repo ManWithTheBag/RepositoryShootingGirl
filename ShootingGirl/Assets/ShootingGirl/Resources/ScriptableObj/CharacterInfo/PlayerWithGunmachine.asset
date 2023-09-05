@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerWithGunmachine
   m_EditorClassIdentifier: 
   _nameOfCharacter: Kitty
-  _typePlayerModel: 2
+  _typePlayerModel: 1
   _prefabOfCharacter: {fileID: 1411233332466125259, guid: 8980387eb245d5547b9ad47ee45ecfcf,
     type: 3}
   _fullHealth: 400

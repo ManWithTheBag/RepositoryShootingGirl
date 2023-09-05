@@ -10,6 +10,7 @@ public abstract class AbsPlayerBaseModetState : MonoBehaviour
     private GameObject _thisGO;
     private Player _player;
 
+    public CharacterInfo characterInfo { get { return _characterInfo; } private set { _characterInfo = value; } }
     public float currentHealthThisModel { get { return _currentHealthThisModel; } private set { _currentHealthThisModel = value; } }
 
 

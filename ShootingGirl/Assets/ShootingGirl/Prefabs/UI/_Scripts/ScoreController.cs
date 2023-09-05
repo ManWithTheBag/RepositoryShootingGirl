@@ -7,6 +7,7 @@ public class ScoreController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private CommonGameInfo _commonGameInfo;
 
+    private Coroutine _scoreCoroutine;
     private bool _isDoCoroutine;
     private float _currentLerpValue;
     private int _updatedScore;
@@ -39,14 +40,14 @@ public class ScoreController : MonoBehaviour
     {
         if (_isDoCoroutine == true)
         {
-            StopAllCoroutines();
+            StopCoroutine(_scoreCoroutine);
 
             oldValue = Mathf.RoundToInt(_currentLerpValue);
-            StartCoroutine(LerpValue(oldValue, newValue));
+            _scoreCoroutine = StartCoroutine(LerpValue(oldValue, newValue));
         }
         else
         {
-            StartCoroutine(LerpValue(oldValue, newValue));
+            _scoreCoroutine = StartCoroutine(LerpValue(oldValue, newValue));
         }
     }
 
