@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e478cb674fba84d8ae9a7faa1f05ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolCapasity: 0
+  _poolCapasity: 2
   _prefabEnemyWithRocket: {fileID: 891579740163156941, guid: 3fc7a92922e30c944a2fc84e83621538,
     type: 3}
   _isActiveByDefolt: 1
@@ -2326,7 +2326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4b490c7675f484dbeb1e3f3d98d863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolCapasity: 1
+  _poolCapasity: 2
   _prefabEnemyWithGun: {fileID: 4736737557875631006, guid: 4523a76931f098c48bdaeb234a7d33bf,
     type: 3}
   _isActiveByDefolt: 1

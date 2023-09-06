@@ -31,7 +31,6 @@ public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, I
     public void TotalRefresh()
     {
         SetVisibleStatusGO(false);
-        GlobalEventManager.SearchNewAimEvent.Invoke();
         _absCharacterMovement.SetStartPosition();
         //TODO Comment for not spawn new enemys
         SetVisibleStatusGO(true);

@@ -24,7 +24,7 @@ public class EnemyMovement : AbsCharacterMovement
 
     public override void MoveCharacter()
     {
-        //TODO Uncomment for move enemys
+        //TODO Coment/Uncomment for move enemys
         _thisRb.velocity = _randomDirection.normalized * _thisCharacter.currentCharacterInfo.speedMove;
     }
 

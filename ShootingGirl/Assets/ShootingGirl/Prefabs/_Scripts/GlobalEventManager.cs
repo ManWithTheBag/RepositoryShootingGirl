@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class GlobalEventManager
 {
-    public static UnityEvent SearchNewAimEvent = new();
+    public static UnityEvent<Transform> GetNewAimForPlayerEvent = new();
     public static UnityEvent<PlayerModelEnum> ChangePlayerModelStateEvent = new();
+    public static UnityEvent DiedPlayerModelEvent = new();
 }

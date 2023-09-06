@@ -6,7 +6,7 @@ public abstract class AbsTakingDamage : MonoBehaviour
 {
     [SerializeField] private CommonGameInfo _commonGameInfo;
 
-    protected AbsCharacter _thisCharacter;
+    protected AbsCharacter _absCharacter;
     protected float _currentHealth;
     protected AbsCharacterUiController _absCharacterUiControler;
 
@@ -18,9 +18,9 @@ public abstract class AbsTakingDamage : MonoBehaviour
 
     public virtual void Awake()
     {
-        _thisCharacter = GetComponent<AbsCharacter>();
+        _absCharacter = GetComponent<AbsCharacter>();
         _absCharacterUiControler = GetComponent<AbsCharacterUiController>();
-        _currentHealth = _thisCharacter.currentCharacterInfo.fullHealth;
+        _currentHealth = _absCharacter.currentCharacterInfo.fullHealth;
     }
 
 
@@ -70,9 +70,5 @@ public abstract class AbsTakingDamage : MonoBehaviour
     #endregion
 
 
-    public virtual void DeathCharacter()
-    {
-        _thisCharacter.TotalRefresh();
-        _currentHealth = _thisCharacter.currentCharacterInfo.fullHealth;
-    }
+    public abstract void DeathCharacter();
 }

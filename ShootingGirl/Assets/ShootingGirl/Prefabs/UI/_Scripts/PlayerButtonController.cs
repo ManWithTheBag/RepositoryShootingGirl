@@ -14,18 +14,5 @@ public class PlayerButtonController : MonoBehaviour
     public ShotButton shotButton { get { return _shotButton; } private set { _shotButton = value; } }
     public Image overheatFillImage { get { return _overheatFillImage; } private set { _overheatFillImage = value; } }
 
-    
-    private void OnEnable()
-    {
-        _refreshAimButton.onClick.AddListener(ActivateRefreshAimButton);
-    }
-    private void OnDisable()
-    {
-        _refreshAimButton.onClick.RemoveListener(ActivateRefreshAimButton);
-    }
-
-    private void ActivateRefreshAimButton()
-    {
-        GlobalEventManager.SearchNewAimEvent.Invoke();
-    }
+   
 }

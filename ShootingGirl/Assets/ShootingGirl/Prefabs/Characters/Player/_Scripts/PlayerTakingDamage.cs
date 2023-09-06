@@ -38,4 +38,13 @@ public class PlayerTakingDamage : AbsTakingDamage
     {
         _currentPlayerModelState.SetCurrentHealthForThisModel(currentHealth);
     }
+
+    public override void DeathCharacter()
+    {
+        if (_currentPlayerModelState.thisGO.activeSelf)
+        {
+            _currentPlayerModelState.DiedPlayerModel();
+            GlobalEventManager.DiedPlayerModelEvent?.Invoke();
+        }
+    }
 }

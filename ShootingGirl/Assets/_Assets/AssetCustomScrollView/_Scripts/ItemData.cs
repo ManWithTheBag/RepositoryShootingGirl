@@ -6,10 +6,12 @@ public class ItemData
 {
     public Sprite _imagePlayerModel;
     public string Message { get; }
-    public int IdItem { get; }
+    public PlayerModelEnum _playerModelEnum;
+    public GameObject _cellGO;
 
-    public ItemData(string message, Sprite imagePlayerMOdel)
+    public ItemData(PlayerModelEnum playerModelEnum, string message, Sprite imagePlayerMOdel)
     {
+        _playerModelEnum = playerModelEnum;
         Message = message;
         _imagePlayerModel = imagePlayerMOdel;
     }

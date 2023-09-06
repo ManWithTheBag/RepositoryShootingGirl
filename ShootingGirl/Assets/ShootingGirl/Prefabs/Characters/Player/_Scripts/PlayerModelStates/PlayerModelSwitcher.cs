@@ -9,6 +9,8 @@ public class PlayerModelSwitcher : MonoBehaviour
     public static Dictionary<PlayerModelEnum, AbsPlayerBaseModetState> s_playerModelStateDictionary = new();
 
     private AbsPlayerBaseModetState _currentPlayerModelState;
+
+    //TODO Scroll new model event
     private PlayerModelScrollView _playerModelScrollView;
 
     private void Awake()
@@ -68,6 +70,5 @@ public class PlayerModelSwitcher : MonoBehaviour
         }
 
         GlobalEventManager.ChangePlayerModelStateEvent.Invoke(playerModelEnum);
-        GlobalEventManager.SearchNewAimEvent.Invoke();
     }
 }

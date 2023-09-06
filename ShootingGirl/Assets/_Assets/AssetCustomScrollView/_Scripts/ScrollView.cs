@@ -35,6 +35,8 @@ public class ScrollView : FancyScrollView<ItemData, Context>
         Refresh();
 
         SelectionModelChangedEvent?.Invoke(index);
+
+        //TODO select a new model
         SetPlayerModelStateEvent?.Invoke(index);
     }
 
@@ -68,7 +70,7 @@ public class ScrollView : FancyScrollView<ItemData, Context>
 
         UpdateSelection(index);
         scroller.ScrollTo(index, 0.35f, EaseEnum.OutCubic);
-
+        SetPlayerModelStateEvent?.Invoke(index);
     }
 }
 

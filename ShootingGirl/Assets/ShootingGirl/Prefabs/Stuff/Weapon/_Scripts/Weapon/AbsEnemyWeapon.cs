@@ -5,8 +5,13 @@ using UnityEngine;
 public abstract class AbsEnemyWeapon : AbsWeapon
 {
     private float _distanceEnemyToPlayer;
+    private string _playerTag = "Player";
     RaycastHit _hit;
 
+    private void Start()
+    {
+        SetAimSootTransform();
+    }
 
     public override void SetAbsCharacter()
     {
@@ -25,7 +30,7 @@ public abstract class AbsEnemyWeapon : AbsWeapon
         {
             if (Physics.Raycast(_firePosition.position, _aimDirection, out _hit, _weaponInfo.range))
             {
-                if (_hit.transform.tag == "Player")
+                if (_hit.transform.CompareTag(_playerTag))
                 {
                     return true;
                 }

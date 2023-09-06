@@ -12,34 +12,25 @@ public class AimsPoolContainer : MonoBehaviour
     private List<IDistanceToAimsComparable> _allAimList = new();
     private List<IDistanceToAimsComparable> _activeAimList = new();
     private List<IDistanceToAimsComparable> _sortedActiveAimList = new();
-    private Transform _nearestAimOfPlayer;
-
-    public event Action<Transform> FoundNearestAimOfPlayerEvent;
-
-    private void OnEnable()
-    {
-        GlobalEventManager.SearchNewAimEvent.AddListener(SetNearestAimOfPlayer);
-    }
-    private void OnDisable()
-    {
-        GlobalEventManager.SearchNewAimEvent.RemoveListener(SetNearestAimOfPlayer);
-    }
 
     private void Start()
     {
         CreateCommonAimList();
-        SetNearestAimOfPlayer();
+        GetNearestAimForPlayer();
     }
 
-    private void SetNearestAimOfPlayer()
+    public Transform GetNearestAimForPlayer()
     {
         _sortedActiveAimList = GetSortedActiveAimList();
 
         if(_sortedActiveAimList.Count != 0)
         {
-            _nearestAimOfPlayer = _sortedActiveAimList[0].thisTransform;
-            FoundNearestAimOfPlayerEvent?.Invoke(_nearestAimOfPlayer);
+            return _sortedActiveAimList[0].thisTransform;
+            //FoundNearestAimOfPlayerEvent?.Invoke(_nearestAimOfPlayer);
         }
+
+        Debug.Log("Error: neares aim for player not found in script: " + this.GetType());
+        return null;
     }
 
     public List<IDistanceToAimsComparable> GetSortedActiveAimList()

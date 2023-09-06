@@ -22,8 +22,11 @@ public class Cell : FancyCell<ItemData, Context>
 
     public override void UpdateContent(ItemData itemData)
     {
+        itemData._cellGO = gameObject;
+
         message.text = itemData.Message;
         image.sprite = itemData._imagePlayerModel;
+
 
         // Do som animation icon when selecterd here
 

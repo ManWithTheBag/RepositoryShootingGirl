@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7520545569550034793}
   - component: {fileID: -1666244107288938365}
   - component: {fileID: 1686729178866593451}
-  - component: {fileID: -5047613843027108908}
+  - component: {fileID: 8393550597295215570}
   m_Layer: 0
   m_Name: ModelPlayerWithRocket
   m_TagString: Player
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponInfo: {fileID: 11400000, guid: c730c345205962a4585474ef839dc6e2, type: 2}
   _firePosition: {fileID: 1812393147246435405}
---- !u!114 &-5047613843027108908
+--- !u!114 &8393550597295215570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,9 +72,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411233332466125259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 159dd50392007f740a7348cc99be5370, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fab06fc16afc6e4782ac2efa207a380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _angleLimitTakeAim: 70
   _bodyCharacter: {fileID: 5068290801584509240}
   _weaponModel: {fileID: 3240319532767372996}
 --- !u!1 &3026132627302152293

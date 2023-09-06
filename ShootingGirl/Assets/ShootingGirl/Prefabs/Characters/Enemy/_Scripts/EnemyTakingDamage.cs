@@ -15,7 +15,8 @@ public class EnemyTakingDamage : AbsTakingDamage
 
     public override void DeathCharacter()
     {
-        _scoreController.AddScore(_thisCharacter.currentCharacterInfo.scoreInEnemy);
-        base.DeathCharacter();
+        _scoreController.AddScore(_absCharacter.currentCharacterInfo.scoreInEnemy);
+        _absCharacter.TotalRefresh();
+        _currentHealth = _absCharacter.currentCharacterInfo.fullHealth;
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   _typePlayerModel: 2
   _prefabOfCharacter: {fileID: 1411233332466125259, guid: 11f151239e7fcfa46a6cfd49e054bcb7,
     type: 3}
-  _fullHealth: 150
+  _fullHealth: 100
   _defaultY: 0.7
   _scoreInEnemy: 0
   _iconOfCharacter: {fileID: 21300000, guid: f87577b232ed9724e929af230072422c, type: 3}

@@ -7,12 +7,16 @@ public abstract class AbsPlayerWeapon : AbsWeapon
     private AimsPoolContainer _aimsPoolContainer;
     protected PlayerButtonController _playerButtonController;
     private bool _playerShotStatus;
-    private Transform _nearestAimOfPlayer;
+    private Transform _thisTransform;
+
+    private RaycastHit _hit;
+    private Ray _ray;
 
     public override void Awake()
     {
         base.Awake();
-       
+
+        _thisTransform = transform;
         _playerButtonController = GameObject.Find("UIController").GetComponent<PlayerButtonController>();
         _aimsPoolContainer = GameObject.Find("CaractersController").GetComponent<AimsPoolContainer>();
     }
@@ -20,12 +24,10 @@ public abstract class AbsPlayerWeapon : AbsWeapon
     public virtual void OnEnable()
     {
         _playerButtonController.shotButton.ShotButtonStatusEvent += SetPlayerShotStatus;
-        _aimsPoolContainer.FoundNearestAimOfPlayerEvent += SetNearestAimOfPlayer;
     }
     public virtual void OnDisable()
     {
         _playerButtonController.shotButton.ShotButtonStatusEvent -= SetPlayerShotStatus;
-        _aimsPoolContainer.FoundNearestAimOfPlayerEvent -= SetNearestAimOfPlayer;
     }
 
     private void SetPlayerShotStatus(bool shotStatus)
@@ -36,19 +38,38 @@ public abstract class AbsPlayerWeapon : AbsWeapon
     {
         return _playerShotStatus;
     }
-
     public override void SetAbsCharacter()
     {
         transform.parent.TryGetComponent<AbsCharacter>(out AbsCharacter absCharacter); _absCharacter = absCharacter;
     }
-    private void SetNearestAimOfPlayer(Transform nearestAimOfPlayer)
+
+    private void Start()
     {
-        _nearestAimOfPlayer = nearestAimOfPlayer;
-        SetAimSootTransform();
+        _aimShotTransform = _aimsPoolContainer.GetNearestAimForPlayer();
+        GlobalEventManager.GetNewAimForPlayerEvent?.Invoke(_aimShotTransform);
     }
+
+    public override void Update()
+    {
+        SearchNewAim();
+
+        base.Update();
+    }
+
+    private void SearchNewAim()
+    {
+        _ray = new Ray(_thisTransform.position, Vector3.forward);
+
+        if(Physics.Raycast(_ray, out _hit, Mathf.Infinity))
+        {
+            SetAimSootTransform();
+        }
+    }
+
     public override void SetAimSootTransform()
     {
-        _aimShotTransform = _nearestAimOfPlayer;
+        _aimShotTransform = _hit.transform;
+        GlobalEventManager.GetNewAimForPlayerEvent?.Invoke(_aimShotTransform);
     }
 
     public override void SetLerpValue(float currentValue, float defaultValue, bool isRevers)

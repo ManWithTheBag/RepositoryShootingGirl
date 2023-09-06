@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 891579740163156941}
   - component: {fileID: 9114821593185133708}
   - component: {fileID: 873412185417458899}
-  - component: {fileID: -5694660073070618171}
+  - component: {fileID: 4425444735948918849}
   - component: {fileID: 3583101168814377812}
   - component: {fileID: 2238417104805835408}
   - component: {fileID: 8925732390915212021}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponInfo: {fileID: 11400000, guid: c730c345205962a4585474ef839dc6e2, type: 2}
   _firePosition: {fileID: 6430977774872082146}
---- !u!114 &-5694660073070618171
+--- !u!114 &4425444735948918849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411233332466125259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 159dd50392007f740a7348cc99be5370, type: 3}
+  m_Script: {fileID: 11500000, guid: c5eb4264a5e160f468e5b1192cc6c663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _angleLimitTakeAim: 70
   _bodyCharacter: {fileID: 5068290801584509240}
   _weaponModel: {fileID: 1419228562553698495}
 --- !u!114 &3583101168814377812

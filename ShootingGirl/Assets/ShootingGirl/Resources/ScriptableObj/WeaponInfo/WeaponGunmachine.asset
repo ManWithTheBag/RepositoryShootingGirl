@@ -15,7 +15,7 @@ MonoBehaviour:
   _damage: 7
   _range: 90
   _timeRechargeShell: 0.5
-  _speedTrakeAim: 6
+  _speedTrakeAim: 0.6
   _sppedOfShell: 60
   _isCanOverheat: 1
   _timeCoolingShellRecharge: 0.5

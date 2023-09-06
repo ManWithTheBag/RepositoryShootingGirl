@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,6 @@ public abstract class AbsWeapon : MonoBehaviour
     private float _currentTimeCoolingBulletRecharge;
 
     public WeaponInfo weaponInfo { get { return _weaponInfo; } private set { _weaponInfo = value; } }
-    public Transform aimShotTransform { get { return _aimShotTransform; } private set { _aimShotTransform = value; } }
 
     public virtual void Awake()
     {
@@ -29,18 +29,13 @@ public abstract class AbsWeapon : MonoBehaviour
         SetPoolShellForWeapon();
     }
 
-    private void Start()
-    {
-        SetAimSootTransform();
-    }
-
     public abstract void SetAbsCharacter();
     public abstract void SetPoolShellForWeapon();
     public abstract void SetAimSootTransform();
 
     #region Check Weapon Conditions like: Recharge and Overheat;
 
-    private void Update()
+    public virtual void Update()
     {
         ChechOverheat();
     }
@@ -132,9 +127,9 @@ public abstract class AbsWeapon : MonoBehaviour
 
     public virtual void SetLerpValue(float currentValue, float defaultValue, bool isRevers) { }
 
-    protected void CalculateAimDirection()
+    public Vector3 CalculateAimDirection()
     {
-        _aimDirection = (_aimShotTransform.position - _firePosition.position);
+        return _aimDirection = (_aimShotTransform.position - _absCharacter.thisTransform.position);
     }
 
     protected void Shot()
