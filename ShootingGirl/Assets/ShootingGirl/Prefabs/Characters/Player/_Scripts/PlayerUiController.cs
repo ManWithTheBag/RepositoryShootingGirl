@@ -31,6 +31,9 @@ public class PlayerUiController : AbsCharacterUiController
 
     public override void SetCurrentHealth(float currentHealth)
     {
+        if (currentHealth < 0)
+            currentHealth = 0;
+
         _absUIBar.currentText.text = Mathf.RoundToInt(currentHealth).ToString();
         _absUIBar.imageFill.fillAmount = currentHealth / _thisAbsCharacter.currentCharacterInfo.fullHealth;
     }

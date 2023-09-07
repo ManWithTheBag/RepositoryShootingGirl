@@ -9,25 +9,23 @@ public class PlayerModelSwitcher : MonoBehaviour
     public static Dictionary<PlayerModelEnum, AbsPlayerBaseModetState> s_playerModelStateDictionary = new();
 
     private AbsPlayerBaseModetState _currentPlayerModelState;
-
-    //TODO Scroll new model event
-    private PlayerModelScrollView _playerModelScrollView;
+    private CustomScrollView _customScrollView;
 
     private void Awake()
     {
-        _playerModelScrollView = GameObject.Find("UIController").GetComponent<PlayerModelScrollView>();
+        _customScrollView = GameObject.Find("UIController").GetComponent<CustomScrollView>();
         InitPlayerModelState();
         SetPlayerModelStateByDefault();
     }
 
     private void OnEnable()
     {
-        _playerModelScrollView.playerModelScrollView.SetPlayerModelStateEvent.AddListener(SelectPlayerModelState);
+        _customScrollView.SetPlayerModelStateEvent += SetPlayerModelState;
 
     }
     private void OnDisable()
     {
-        _playerModelScrollView.playerModelScrollView.SetPlayerModelStateEvent.RemoveListener(SelectPlayerModelState);
+        _customScrollView.SetPlayerModelStateEvent -= SetPlayerModelState;
     }
 
     private void Start()
@@ -51,10 +49,6 @@ public class PlayerModelSwitcher : MonoBehaviour
         SetPlayerModelState(PlayerModelEnum.PlayerWithGun);
     }
 
-    private void SelectPlayerModelState(int indexModel)
-    {
-        SetPlayerModelState((PlayerModelEnum)indexModel);
-    }
 
     private void SetPlayerModelState(PlayerModelEnum playerModelEnum)
     {

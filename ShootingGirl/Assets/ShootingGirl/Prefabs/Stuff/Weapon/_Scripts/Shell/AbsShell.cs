@@ -17,14 +17,14 @@ public abstract class AbsShell : MonoBehaviour, IRefreshible, IVisibleInvisible,
     public int damage{get { return _damage; }private set { _damage = value; }}
     public Transform shootsCharacter { get { return _shootsCharacter; }private set { _shootsCharacter = value; }}
 
-    private void Awake()
+    public virtual void Awake()
     {
         _thisTransform = transform;
         _absShellMovement = GetComponent<AbsShellMovement>();
         _thisRB = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         CheckDestroyDistance();
     }
@@ -41,12 +41,16 @@ public abstract class AbsShell : MonoBehaviour, IRefreshible, IVisibleInvisible,
         _absShellMovement.SetSpeedOfShell(speedOfShell);
     }
 
-    public void TotalRefresh()
+    public virtual void SetPropertyToFlight(float timeToFlight, float maxHeight) {}
+    public virtual void SetPositions(Transform startPosition, Transform finishPosition) { }
+
+    public virtual void TotalRefresh()
     {
         SetVisibleStatusGO(false);
         _thisRB.velocity = Vector3.zero;
         _thisRB.angularVelocity = Vector3.zero;
     }
+
     public void SetVisibleStatusGO(bool isStatus)
     {
         gameObject.SetActive(isStatus);

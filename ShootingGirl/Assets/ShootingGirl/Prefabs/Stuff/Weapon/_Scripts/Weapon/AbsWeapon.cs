@@ -65,8 +65,11 @@ public abstract class AbsWeapon : MonoBehaviour
         {
             Shot();
 
-            _currentCountBulletToOverheat ++;
-            SetLerpValue(_currentCountBulletToOverheat, _weaponInfo.countShellToOverheat, false);
+            if (_weaponInfo.isCanOverheat)
+            {
+                _currentCountBulletToOverheat ++;
+                SetLerpValue(_currentCountBulletToOverheat, _weaponInfo.countShellToOverheat, false);
+            }
         }
 
         if (CheckTimeCoolingBulletRecharge() && CheckPersonalWeaponCondition() == false && _weaponInfo.isCanOverheat)
@@ -132,14 +135,26 @@ public abstract class AbsWeapon : MonoBehaviour
         return _aimDirection = (_aimShotTransform.position - _absCharacter.thisTransform.position);
     }
 
+    #region Shot region
+
     protected void Shot()
     {
         AbsShell shell = _poolCurrentShell.GetElement();
-        shell._thisTransform.position = _firePosition.position;
-        shell._thisTransform.rotation = _firePosition.rotation;
-        shell.SetShellData(_weaponInfo.damage, _absCharacter.thisTransform);
-        shell.SetupShell(_aimDirection, _weaponInfo.sppedOfShell);
+        SetSellTransform(shell);
+        SetShellData(shell);
+        
         shell.SetVisibleStatusGO(true);
     }
+    private void SetSellTransform(AbsShell shell)
+    {
+        shell._thisTransform.position = _firePosition.position;
+        shell._thisTransform.rotation = _firePosition.rotation;
+    }
 
+    public virtual void SetShellData(AbsShell shell)
+    {
+        shell.SetShellData(_weaponInfo.damage, _absCharacter.thisTransform);
+        shell.SetupShell(_aimDirection, _weaponInfo.sppedOfShell);
+    }
+    #endregion
 }
