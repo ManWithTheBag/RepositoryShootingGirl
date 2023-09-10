@@ -371,6 +371,8 @@
 "Assets/ShootingGirl/Prefabs/Camera/_Scripts/CameraMovement.cs"
 "Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithGun/_Scripts/EnemyWithGun.cs"
 "Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithGun/_Scripts/PoolEnemyWithGun.cs"
+"Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithMortar/_Scripts/EnemyWithMortar.cs"
+"Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithMortar/_Scripts/PoolEnemyWithMortar.cs"
 "Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithRocket/_Scripts/EnemyWithRocket.cs"
 "Assets/ShootingGirl/Prefabs/Characters/Enemy/EnemyWithRocket/_Scripts/PoolEnemyWithRocket.cs"
 "Assets/ShootingGirl/Prefabs/Characters/Enemy/_Scripts/AbsEnemyCharacter.cs"

@@ -155,6 +155,7 @@ public abstract class AbsWeapon : MonoBehaviour
     {
         shell.SetShellData(_weaponInfo.damage, _absCharacter.thisTransform);
         shell.SetupShell(_aimDirection, _weaponInfo.sppedOfShell);
+        shell.SetAutoTakeAim(false);
     }
     #endregion
 }

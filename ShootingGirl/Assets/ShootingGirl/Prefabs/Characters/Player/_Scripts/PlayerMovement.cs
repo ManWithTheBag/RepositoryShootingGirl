@@ -18,7 +18,7 @@ public class PlayerMovement : AbsCharacterMovement
 
     public override void SetStartPosition()
     {
-        _thisTransform.position = new Vector3(0, _thisCharacter.currentCharacterInfo.defaultY, _thisCharacter.commonMapInfo.mapRadius);
+        _thisTransform.position = new Vector3(0, _thisCharacter.currentCharacterInfo.defaultY, _thisCharacter.mapInfo.mapRadius);
     }
 
     public override void MoveCharacter()
@@ -32,13 +32,13 @@ public class PlayerMovement : AbsCharacterMovement
         _joystickHorizontalValue = _inputJoystick.GetHorisontalValue();
 
         //Right
-        if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.commonMapInfo.angleMapLimit)
+        if (_joystickHorizontalValue > 0   &&  (_angleOfMove * Mathf.Rad2Deg) > -_thisCharacter.mapInfo.angleMapLimit)
         {
             _angleOfMove -= Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedMove;
         }
 
         //Left
-        if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.commonMapInfo.angleMapLimit)
+        if (_joystickHorizontalValue < 0  && (_angleOfMove * Mathf.Rad2Deg) < _thisCharacter.mapInfo.angleMapLimit)
         {
             _angleOfMove += Time.fixedDeltaTime * _thisCharacter.currentCharacterInfo.speedMove;
         }
@@ -46,9 +46,9 @@ public class PlayerMovement : AbsCharacterMovement
 
     private Vector3 GetDirectionMovement()
     {
-        _directionMovement.x = (-Mathf.Sin(_angleOfMove)) * _thisCharacter.commonMapInfo.mapRadius;
+        _directionMovement.x = (-Mathf.Sin(_angleOfMove)) * _thisCharacter.mapInfo.mapRadius;
         _directionMovement.y = GetYJump();
-        _directionMovement.z = (-Mathf.Cos(_angleOfMove)) * _thisCharacter.commonMapInfo.mapRadius;
+        _directionMovement.z = (-Mathf.Cos(_angleOfMove)) * _thisCharacter.mapInfo.mapRadius;
         _directionMovement = _mapCenter.position + (_directionMovement);
 
         return _directionMovement;

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AbsPlayerWeapon : AbsWeapon
 {
     private AimsPoolContainer _aimsPoolContainer;
-    protected PlayerButtonController _playerButtonController;
+    protected PlayerButtonFields _playerButtonFields;
     private bool _playerShotStatus;
     private Transform _thisTransform;
 
@@ -17,17 +17,17 @@ public abstract class AbsPlayerWeapon : AbsWeapon
         base.Awake();
 
         _thisTransform = transform;
-        _playerButtonController = GameObject.Find("UIController").GetComponent<PlayerButtonController>();
+        _playerButtonFields = GameObject.Find("UIController").GetComponent<PlayerButtonFields>();
         _aimsPoolContainer = GameObject.Find("CaractersController").GetComponent<AimsPoolContainer>();
     }
 
     public virtual void OnEnable()
     {
-        _playerButtonController.shotButton.ShotButtonStatusEvent += SetPlayerShotStatus;
+        _playerButtonFields.shotButton.ShotButtonStatusEvent += SetPlayerShotStatus;
     }
     public virtual void OnDisable()
     {
-        _playerButtonController.shotButton.ShotButtonStatusEvent -= SetPlayerShotStatus;
+        _playerButtonFields.shotButton.ShotButtonStatusEvent -= SetPlayerShotStatus;
     }
 
     private void SetPlayerShotStatus(bool shotStatus)
@@ -77,9 +77,9 @@ public abstract class AbsPlayerWeapon : AbsWeapon
         if (_weaponInfo.isCanOverheat)
         {
             if (isRevers)
-                _playerButtonController.overheatFillImage.fillAmount = 1 - (currentValue / defaultValue);
+                _playerButtonFields.overheatFillImage.fillAmount = 1 - (currentValue / defaultValue);
             else
-                _playerButtonController.overheatFillImage.fillAmount = (currentValue / defaultValue);
+                _playerButtonFields.overheatFillImage.fillAmount = (currentValue / defaultValue);
         }
     }
 }

@@ -15,6 +15,7 @@ public class WeaponInfo : ScriptableObject
     [SerializeField] [Min(0)] private float _sppedOfShell;
     [SerializeField] [Min(0)] private float _mortarTimeToFlight;
     [SerializeField] [Min(0)] private float _mortarMaxHeight;
+    [SerializeField] [Min(0)] private float _mortarRadiusExplosion;
 
     [Header("Weapon Overheat")]
     [SerializeField] private bool _isCanOverheat;
@@ -28,8 +29,10 @@ public class WeaponInfo : ScriptableObject
 
     public float speedTrakeAim{ get { return _speedTrakeAim; } private set { _speedTrakeAim = value; }}
     public float sppedOfShell { get { return _sppedOfShell; } private set { _sppedOfShell = value; } }
+
     public float mortarTimeToFlight { get { return _mortarTimeToFlight; } private set { _mortarTimeToFlight = value; } }
     public float mortarMaxHeight { get { return _mortarMaxHeight; } private set { _mortarMaxHeight = value; } }
+    public float mortarRadiusExplosion { get { return _mortarRadiusExplosion; } private set { _mortarRadiusExplosion = value; } }
 
 
     public bool isCanOverheat { get { return _isCanOverheat; } private set { _isCanOverheat = value; } }

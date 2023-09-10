@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, IRefreshible, IVisibleInvisible
 {
-    [SerializeField] private CommonMapInfo _commonMapInfo;
+    [SerializeField] private MapInfo _mapInfo;
     
     protected CharacterInfo _currentCharacterInfo;
     protected float _distancePlayerToAim;
@@ -13,7 +13,7 @@ public abstract class AbsCharacter : MonoBehaviour, IDistanceToAimsComparable, I
     private AbsCharacterMovement _absCharacterMovement;
 
     public CharacterInfo currentCharacterInfo { get { return _currentCharacterInfo; } private set { _currentCharacterInfo = value; } }
-    public CommonMapInfo commonMapInfo { get { return _commonMapInfo; } private set { _commonMapInfo = value; } }
+    public MapInfo mapInfo { get { return _mapInfo; } private set { _mapInfo = value; } }
     public float distancePlayerToAim { get { return _distancePlayerToAim; } private set { _distancePlayerToAim = value; } }
     public Transform thisTransform { get { return _thisTransform; } private set { _thisTransform = value; } }
 

@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class EnemyMortar : AbsEnemyWeapon
 {
-    [SerializeField]private ShellMortar _shellMortar;
-    [SerializeField] private float _maxHeight;
-    [SerializeField] private float _timeToFlight;
-    [SerializeField]private Transform _aimTransform;
     private Transform _thisTransform;
+
+    public override void Awake()
+    {
+        base.Awake();
+        _thisTransform = transform;
+    }
 
     public override void SetPoolShellForWeapon()
     {
@@ -27,8 +29,8 @@ public class EnemyMortar : AbsEnemyWeapon
     public override void SetShellData(AbsShell shell)
     {
         shell.SetShellData(_weaponInfo.damage, _absCharacter.thisTransform);
-        shell.SetPropertyToFlight(_weaponInfo.mortarTimeToFlight, weaponInfo.mortarMaxHeight);
+        shell.SetPropertyToFlight(_weaponInfo.mortarTimeToFlight, weaponInfo.mortarMaxHeight, _weaponInfo.mortarRadiusExplosion);
         shell.SetPositions(_firePosition, _aimShotTransform);
-
+        shell.SetAutoTakeAim(false);
     }
 }

@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e0f68010eff740b601c84112ad1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _commonMapInfo: {fileID: 11400000, guid: 50dce881161684c4aa3d2b5b14aa8fc1, type: 2}
+  _mapInfo: {fileID: 11400000, guid: 50dce881161684c4aa3d2b5b14aa8fc1, type: 2}
   _characterInfo: {fileID: 11400000, guid: 7d52b446dc2e092499e8736d003c274d, type: 2}
 --- !u!114 &9114821593185133708
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e49e4aba49db0419bb247534cc1082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _commonGameInfo: {fileID: 11400000, guid: e584ecc549439264f9a224f956b45b52, type: 2}
+  _gameInfo: {fileID: 11400000, guid: e584ecc549439264f9a224f956b45b52, type: 2}
 --- !u!114 &3597826852816660455
 MonoBehaviour:
   m_ObjectHideFlags: 0

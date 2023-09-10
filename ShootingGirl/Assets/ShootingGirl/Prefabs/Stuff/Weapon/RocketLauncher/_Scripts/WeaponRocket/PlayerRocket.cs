@@ -10,12 +10,12 @@ public class PlayerRocket : AbsPlayerWeapon
     public override void OnEnable()
     {
         base.OnEnable();
-        _playerButtonController.shotButton.ShotButtonOnClickEvent += ShotPlayerRocket;
+        _playerButtonFields.shotButton.ShotButtonOnClickEvent += ShotPlayerRocket;
     }
     public override void OnDisable()
     {
         base.OnDisable();
-        _playerButtonController.shotButton.ShotButtonOnClickEvent -= ShotPlayerRocket;
+        _playerButtonFields.shotButton.ShotButtonOnClickEvent -= ShotPlayerRocket;
     }
 
     public override void SetPoolShellForWeapon()
@@ -61,7 +61,7 @@ public class PlayerRocket : AbsPlayerWeapon
 
     private void GetLerpResult(float result)
     {
-        _playerButtonController.overheatFillImage.fillAmount = result;
+        _playerButtonFields.overheatFillImage.fillAmount = result;
     }
 
 

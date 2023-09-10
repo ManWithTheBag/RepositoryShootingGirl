@@ -32,9 +32,9 @@ public class EnemyMovement : AbsCharacterMovement
     {
         Vector3 tempDirection = _thisTransform.position - _randomEnemyPosition.centerSpawnEnemy.position;
         float angleX = Vector3.Angle(new Vector3(1, 0, 0), tempDirection);
-        Vector3 angle0Position = new Vector3(_thisTransform.position.x, 0, -_thisCharacter.commonMapInfo.mapRadius);
-        float defaulthypotenuse = _thisCharacter.commonMapInfo.mapRadius / (Mathf.Cos(_thisCharacter.commonMapInfo.angleMapLimit * Mathf.Deg2Rad));
-        float defaultBottomLeg = defaulthypotenuse * (Mathf.Sin(_thisCharacter.commonMapInfo.angleMapLimit * Mathf.Deg2Rad));
+        Vector3 angle0Position = new Vector3(_thisTransform.position.x, 0, -_thisCharacter.mapInfo.mapRadius);
+        float defaulthypotenuse = _thisCharacter.mapInfo.mapRadius / (Mathf.Cos(_thisCharacter.mapInfo.angleMapLimit * Mathf.Deg2Rad));
+        float defaultBottomLeg = defaulthypotenuse * (Mathf.Sin(_thisCharacter.mapInfo.angleMapLimit * Mathf.Deg2Rad));
 
         float randomX = 0;
         float randomZ = 0;
@@ -65,7 +65,7 @@ public class EnemyMovement : AbsCharacterMovement
 
     private float RightMaxSuitableAngle(Vector3 angle0Position, float defaultBottomLeg)
     {
-        Vector3 angleLimitPositionRight = new Vector3(defaultBottomLeg, 0, -_thisCharacter.commonMapInfo.mapRadius);
+        Vector3 angleLimitPositionRight = new Vector3(defaultBottomLeg, 0, -_thisCharacter.mapInfo.mapRadius);
         float gipABright = Vector3.Distance(_thisTransform.position, angleLimitPositionRight);
         float cutBCright = Vector3.Distance(angle0Position, angleLimitPositionRight);
         //Debug.Log("Right: " + cutBCright + ";     " + gipABright);
@@ -77,7 +77,7 @@ public class EnemyMovement : AbsCharacterMovement
 
     private float LeftMaxSuitableAngle(Vector3 angle0Position, float defaultBottomLeg)
     {
-        Vector3 angleLimitPositionLeft = new Vector3(-defaultBottomLeg, 0, -_thisCharacter.commonMapInfo.mapRadius);
+        Vector3 angleLimitPositionLeft = new Vector3(-defaultBottomLeg, 0, -_thisCharacter.mapInfo.mapRadius);
         float gipABleft = Vector3.Distance(_thisTransform.position, angleLimitPositionLeft);
         float cutBCleft = Vector3.Distance(angle0Position, angleLimitPositionLeft);
         //Debug.Log("Left: " + cutBCleft + ";     " + gipABleft);

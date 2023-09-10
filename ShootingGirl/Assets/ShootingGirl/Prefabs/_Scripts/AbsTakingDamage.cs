@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AbsTakingDamage : MonoBehaviour
 {
-    [SerializeField] private CommonGameInfo _commonGameInfo;
+    [SerializeField] private GameInfo _gameInfo;
 
     protected AbsCharacter _absCharacter;
     protected float _currentHealth;
@@ -55,7 +55,7 @@ public abstract class AbsTakingDamage : MonoBehaviour
     {
         _isDoCoroutine = true;
 
-        for (float i = 0; i < 1; i += Time.deltaTime / _commonGameInfo.timeLerpingValue)
+        for (float i = 0; i < 1; i += Time.deltaTime / _gameInfo.timeLerpingValue)
         {
             _currentLerpValue = Mathf.Lerp(oldScoreValue, newScoreValue, i);
             _absCharacterUiControler.SetCurrentHealth(_currentLerpValue);

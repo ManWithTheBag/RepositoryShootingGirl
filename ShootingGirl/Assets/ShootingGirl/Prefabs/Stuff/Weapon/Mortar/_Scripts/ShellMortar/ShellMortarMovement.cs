@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShellMortarMovement : MonoBehaviour
 {
+    private ShellMortar _shellMortar;
+    private Transform _thisTransform;
     private Transform _mortarTransform;
     private Transform _aimTransform;
     private float _maxHeight;
@@ -13,13 +15,10 @@ public class ShellMortarMovement : MonoBehaviour
     private Vector3 _positionFinish_1;
     private Vector3 _positionFinish_2;
 
-    float _timeElapsed;
-    float _valueToLerp;
-
-    public void SetPositions(Transform startPosition, Transform finishPosition)
+    private void Awake()
     {
-        _mortarTransform = startPosition;
-        _aimTransform = finishPosition;
+        _thisTransform = transform;
+        _shellMortar = GetComponent<ShellMortar>();
     }
 
     public void SetPropertyToFlight(float timeToFlight, float maxHeight)
@@ -27,26 +26,14 @@ public class ShellMortarMovement : MonoBehaviour
         _timeToFlight = timeToFlight;
         _maxHeight = maxHeight;
     }
-
-
-    void Update()
+    public void SetPositions(Transform startPosition, Transform finishPosition)
     {
+        _mortarTransform = startPosition;
+        _aimTransform = finishPosition;
+
         SetupTrajectory();
-        GetLerpT();
 
-        transform.position = Bezier.GetPoint(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, _valueToLerp);
-        transform.rotation = Quaternion.LookRotation(Bezier.GetFirstDerivative(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, _valueToLerp));
-
-        CheckFinidhShell();
-    }
-
-    private void GetLerpT()
-    {
-        if (_timeElapsed < _timeToFlight)
-        {
-            _valueToLerp = Mathf.Lerp(0, 1, _timeElapsed / _timeToFlight);
-            _timeElapsed += Time.deltaTime;
-        }
+        StartCoroutine(MoveShellMortar());
     }
 
     private void SetupTrajectory()
@@ -61,27 +48,35 @@ public class ShellMortarMovement : MonoBehaviour
     }
 
 
-    private void CheckFinidhShell()
+    private IEnumerator MoveShellMortar()
     {
-        if (_valueToLerp == 1)
+        for (float i = 0; i < 1; i += Time.deltaTime / _timeToFlight)
         {
-            new GameObject("Explosion");
+            if (_shellMortar.isAutoTakeAim)
+                SetupTrajectory();
+
+            _thisTransform.position = Bezier.GetPoint(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, i);
+            _thisTransform.rotation = Quaternion.LookRotation(Bezier.GetFirstDerivative(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, i));
+
+            yield return null;
         }
+
+        _shellMortar.ShellMortarExplosion();
     }
 
-    //private void OnDrawGizmos()
-    //{
+    private void OnDrawGizmos()
+    {
 
-    //    int sigmentsNumber = 20;
-    //    Vector3 preveousePoint = _positionStart_1;
+        int sigmentsNumber = 20;
+        Vector3 preveousePoint = _positionStart_1;
 
-    //    for (int i = 0; i < sigmentsNumber + 1; i++)
-    //    {
-    //        float paremeter = (float)i / sigmentsNumber;
-    //        Vector3 point = Bezier.GetPoint(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, paremeter);
-    //        Gizmos.DrawLine(preveousePoint, point);
-    //        preveousePoint = point;
-    //    }
+        for (int i = 0; i < sigmentsNumber + 1; i++)
+        {
+            float paremeter = (float)i / sigmentsNumber;
+            Vector3 point = Bezier.GetPoint(_positionStart_1, _positionStart_2, _positionFinish_1, _positionFinish_2, paremeter);
+            Gizmos.DrawLine(preveousePoint, point);
+            preveousePoint = point;
+        }
 
-    //}
+    }
 }

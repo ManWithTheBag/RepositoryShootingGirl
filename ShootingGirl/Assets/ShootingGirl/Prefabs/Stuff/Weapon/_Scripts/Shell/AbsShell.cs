@@ -5,17 +5,20 @@ using System;
 
 public abstract class AbsShell : MonoBehaviour, IRefreshible, IVisibleInvisible, IDamaging
 {
-    [SerializeField] private CommonGameInfo _commonGameInfo;
+    [SerializeField] private GameInfo _gameInfo;
     [NonSerialized]public Transform _thisTransform;
+    
     private AbsShellMovement _absShellMovement;
     private Rigidbody _thisRB;
-
     private int _damage;
     private Transform _shootsCharacter;
+    private bool _isAutoTakeAim;
 
     public AbsShellMovement absShellMovement { get { return _absShellMovement; } private set { _absShellMovement = value; } }
     public int damage{get { return _damage; }private set { _damage = value; }}
     public Transform shootsCharacter { get { return _shootsCharacter; }private set { _shootsCharacter = value; }}
+    public bool isAutoTakeAim { get { return _isAutoTakeAim; } private set { _isAutoTakeAim = value; } }
+
 
     public virtual void Awake()
     {
@@ -40,8 +43,12 @@ public abstract class AbsShell : MonoBehaviour, IRefreshible, IVisibleInvisible,
         _absShellMovement.SetDirectionMove(derectionMove);
         _absShellMovement.SetSpeedOfShell(speedOfShell);
     }
+    public void SetAutoTakeAim(bool isAutoTakeAim) 
+    {
+        _isAutoTakeAim = isAutoTakeAim;
+    }
 
-    public virtual void SetPropertyToFlight(float timeToFlight, float maxHeight) {}
+    public virtual void SetPropertyToFlight(float timeToFlight, float maxHeight, float radiusExplosion) {}
     public virtual void SetPositions(Transform startPosition, Transform finishPosition) { }
 
     public virtual void TotalRefresh()
@@ -56,9 +63,9 @@ public abstract class AbsShell : MonoBehaviour, IRefreshible, IVisibleInvisible,
         gameObject.SetActive(isStatus);
     }
 
-    private void CheckDestroyDistance()
+    public virtual void CheckDestroyDistance()
     {
-        if(Vector3.Distance(_thisTransform.position, _shootsCharacter.position) > _commonGameInfo.destroyDistanceShell)
+        if(Vector3.Distance(_thisTransform.position, _shootsCharacter.position) > _gameInfo.destroyDistanceShell)
         {
             TotalRefresh();
         }

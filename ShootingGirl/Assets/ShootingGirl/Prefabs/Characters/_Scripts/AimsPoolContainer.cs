@@ -7,6 +7,7 @@ public class AimsPoolContainer : MonoBehaviour
 {
     [SerializeField] private PoolEnemyWithGun _poolEnemyWithGun;
     [SerializeField] private PoolEnemyWithRocket _poolEnemyWithRocket;
+    [SerializeField] private PoolEnemyWithMortar _poolEnemyWithMortar;
 
     private DistanceToAimComparer _distanceToAimComparer = new();
     private List<IDistanceToAimsComparable> _allAimList = new();
@@ -26,7 +27,6 @@ public class AimsPoolContainer : MonoBehaviour
         if(_sortedActiveAimList.Count != 0)
         {
             return _sortedActiveAimList[0].thisTransform;
-            //FoundNearestAimOfPlayerEvent?.Invoke(_nearestAimOfPlayer);
         }
 
         Debug.Log("Error: neares aim for player not found in script: " + this.GetType());
@@ -64,6 +64,7 @@ public class AimsPoolContainer : MonoBehaviour
     {
         _allAimList.AddRange(_poolEnemyWithGun.getEnemyWithGunList);
         _allAimList.AddRange(_poolEnemyWithRocket.getEnemyWithRocketList);
+        _allAimList.AddRange(_poolEnemyWithMortar.getEnemyWithMortarList);
     }
 
 }

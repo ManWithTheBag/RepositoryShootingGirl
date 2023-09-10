@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: WeaponMortar
   m_EditorClassIdentifier: 
   _damage: 40
-  _range: 200
-  _timeRechargeShell: 6
+  _range: 300
+  _timeRechargeShell: 12
   _speedTrakeAim: 0.2
   _sppedOfShell: 0
-  _mortarTimeToFlight: 0
-  _mortarMaxHeight: 0
+  _mortarTimeToFlight: 3
+  _mortarMaxHeight: 100
+  _mortarRadiusExplosion: 2
   _isCanOverheat: 0
   _timeCoolingShellRecharge: 0
   _countShellToOverheat: 0
