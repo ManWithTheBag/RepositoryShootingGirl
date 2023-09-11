@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartMenyScene.unity
+    guid: 64c114570236b074cb3b5607d64766d8
+  - enabled: 1
+    path: Assets/Scenes/PlayScene.unity
+    guid: c850ee8c3b14cc8459e7e186857cf567
+  - enabled: 1
+    path: Assets/Scenes/BuyModelScene.unity
+    guid: 54bb92101ad5e3147b2afc1bbc63f980
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 637e42bd837f1e54eb124642b9fe97c7,
       type: 2}
